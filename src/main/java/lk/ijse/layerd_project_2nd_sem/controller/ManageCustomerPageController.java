@@ -82,11 +82,11 @@ public class ManageCustomerPageController {
     private void loadTableData() throws Exception {
         tblCustomer.setItems(FXCollections.observableArrayList(
                 customerBO.getAllCustomer().stream().map(
-                        CustomerDTO -> new CustomerTM(
-                                CustomerDTO.getCustomerId(),
-                                CustomerDTO.getCustomerName(),
-                                CustomerDTO.getCustomerContact(),
-                                CustomerDTO.getCustomerAddress()
+                        customerDTO -> new CustomerTM(
+                                customerDTO.getCustomerId(),
+                                customerDTO.getCustomerName(),
+                                customerDTO.getCustomerContact(),
+                                customerDTO.getCustomerAddress()
                         )).toList()
         ));
     }
@@ -153,8 +153,20 @@ public class ManageCustomerPageController {
         String customerContact = txtContact.getText();
         String customerAddress = txtAddress.getText();
         try {
-            customerBO.updateCustomer(new CustomerDTO(cutomerId, customerName, customerContact, customerAddress));
-            tblCustomer.getItems().add(new CustomerTM(cutomerId,customerName,customerContact,customerAddress));
+            customerBO.updateCustomer(new CustomerDTO(
+                    cutomerId,
+                    customerName,
+                    customerContact,
+                    customerAddress
+            ));
+
+            tblCustomer.getItems().add(new CustomerTM(
+                    cutomerId,
+                    customerName,
+                    customerContact,
+                    customerAddress
+            ));
+
         }catch (Exception e){
             e.printStackTrace();
             new Alert(Alert.AlertType.ERROR, "Failed to update customer").show();

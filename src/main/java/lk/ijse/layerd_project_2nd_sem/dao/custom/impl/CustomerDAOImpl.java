@@ -48,10 +48,6 @@ public class CustomerDAOImpl implements CustomerDAO {
         );
     }
 
-    @Override
-    public boolean exist(String id) throws SQLException, ClassNotFoundException {
-        return false;
-    }
 
     @Override
     public boolean delete(String customerId) throws SQLException, ClassNotFoundException {
