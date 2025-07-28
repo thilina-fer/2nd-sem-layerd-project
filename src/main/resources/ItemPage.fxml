@@ -203,6 +203,17 @@
                                             <graphic>
                                             </graphic>
                                         </Button>
+<<<<<<< HEAD
+=======
+                                        <Button mnemonicParsing="false" onAction="#btnReportOnAction" prefHeight="35.0" prefWidth="330.0" style="-fx-background-radius: 20; -fx-background-color: linear-gradient(to right, #D3CCE3, #E9E4F0);;" text="Generate a Report">
+                                            <font>
+                                                <Font name="Arial Bold" size="15.0" />
+                                            </font>
+                                            <VBox.margin>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
+                                            </VBox.margin>
+                                        </Button>
+>>>>>>> 29df9086bc26a92ffecd5e42c3487870ae5473b1
                                     </children>
                                 </VBox>
                             </children>
