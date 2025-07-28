@@ -13,7 +13,8 @@ public class DAOFactory {
     }
     public enum DAOTypes {
         CUSTOMER,
-        ITEM
+        ITEM,
+        EMPLOYEE
 
 
     }
