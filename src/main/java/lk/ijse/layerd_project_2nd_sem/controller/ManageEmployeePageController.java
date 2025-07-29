@@ -2,6 +2,7 @@ package lk.ijse.layerd_project_2nd_sem.controller;
 
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
@@ -254,12 +255,30 @@ public class ManageEmployeePageController {
             btnReset.setDisable(false);
         }
     }
-    public void goToDashboard(MouseEvent mouseEvent) {
-    }
 
     public void goToEmployeeAttendancePage(MouseEvent mouseEvent) {
     }
 
     public void search(KeyEvent event) {
+    }
+
+    public void navigateTo(String path) {
+        try {
+            ancEmployeePage.getChildren().clear();
+
+            AnchorPane anchorPane = FXMLLoader.load(getClass().getResource(path));
+
+            anchorPane.prefWidthProperty().bind(ancEmployeePage.widthProperty());
+            anchorPane.prefHeightProperty().bind(ancEmployeePage.heightProperty());
+
+            ancEmployeePage.getChildren().add(anchorPane);
+
+        }catch (Exception e){
+            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
+            e.printStackTrace();
+        }
+    }
+    public void gotoHomePage(ActionEvent event) {
+            navigateTo("/DashboardPage.fxml");
     }
 }

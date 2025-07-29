@@ -2,6 +2,7 @@ package lk.ijse.layerd_project_2nd_sem.controller;
 
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
@@ -219,5 +220,24 @@ public class ManageCustomerPageController {
             btnUpdate.setDisable(false);
             btnDelete.setDisable(false);
         }
+    }
+    public void navigateTo(String path) {
+        try {
+            ancCustomerPage.getChildren().clear();
+
+            AnchorPane anchorPane = FXMLLoader.load(getClass().getResource(path));
+
+            anchorPane.prefWidthProperty().bind(ancCustomerPage.widthProperty());
+            anchorPane.prefHeightProperty().bind(ancCustomerPage.heightProperty());
+
+            ancCustomerPage.getChildren().add(anchorPane);
+
+        }catch (Exception e){
+            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
+            e.printStackTrace();
+        }
+    }
+    public void goToHomePage(ActionEvent actionEvent) {
+        navigateTo("/DashboardPage.fxml");
     }
 }

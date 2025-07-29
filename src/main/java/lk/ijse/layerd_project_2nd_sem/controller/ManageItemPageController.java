@@ -2,6 +2,7 @@ package lk.ijse.layerd_project_2nd_sem.controller;
 
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
@@ -39,6 +40,7 @@ public class ManageItemPageController {
     private final String quantityPattern = "^\\d+$";
     private final String buyingPricePattern = "^\\d+(\\.\\d{1,2})?$";
     private final String sellingPricePattern = "^\\d+(\\.\\d{1,2})?$";
+    public Hyperlink goToHomePage;
 
     ItemBO itemBO = (ItemBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ITEM);
 
@@ -231,5 +233,25 @@ public class ManageItemPageController {
             btnUpdate.setDisable(false);
             btnDelete.setDisable(false);
         }
+    }
+
+    public void navigateTo(String path) {
+        try {
+            ancItemPage.getChildren().clear();
+
+            AnchorPane anchorPane = FXMLLoader.load(getClass().getResource(path));
+
+            anchorPane.prefWidthProperty().bind(ancItemPage.widthProperty());
+            anchorPane.prefHeightProperty().bind(ancItemPage.heightProperty());
+
+            ancItemPage.getChildren().add(anchorPane);
+
+        }catch (Exception e){
+            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
+            e.printStackTrace();
+        }
+    }
+    public void goToHomePage(ActionEvent actionEvent) {
+        navigateTo("/DashboardPage.fxml");
     }
 }
