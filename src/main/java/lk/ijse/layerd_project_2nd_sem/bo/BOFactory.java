@@ -3,6 +3,7 @@ package lk.ijse.layerd_project_2nd_sem.bo;
 import lk.ijse.layerd_project_2nd_sem.bo.custom.impl.CustomerBOImpl;
 import lk.ijse.layerd_project_2nd_sem.bo.custom.impl.EmployeeBOImpl;
 import lk.ijse.layerd_project_2nd_sem.bo.custom.impl.ItemBOImpl;
+import lk.ijse.layerd_project_2nd_sem.bo.custom.impl.SupplierBOImpl;
 
 public class BOFactory {
 
@@ -27,7 +28,7 @@ public class BOFactory {
                 return new EmployeeBOImpl();
 
             case SUPPLIER:
-                return new supplierBOImpl();
+                return new SupplierBOImpl();
             default:
                 return null;
         }

@@ -3,6 +3,7 @@ package lk.ijse.layerd_project_2nd_sem.dao;
 import lk.ijse.layerd_project_2nd_sem.dao.custom.impl.CustomerDAOImpl;
 import lk.ijse.layerd_project_2nd_sem.dao.custom.impl.EmployeeDAOImpl;
 import lk.ijse.layerd_project_2nd_sem.dao.custom.impl.ItemDAOImpl;
+import lk.ijse.layerd_project_2nd_sem.dao.custom.impl.SupplierDAOImpl;
 
 import static lk.ijse.layerd_project_2nd_sem.bo.BOFactory.BOTypes.ITEM;
 

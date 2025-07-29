@@ -40,4 +40,8 @@ public class DashboardPageController {
     public void btnEmployeeOnAction(ActionEvent event) {
         navigateTo("/EmployeePage.fxml");
     }
+
+    public void btnSupplierOnAction(ActionEvent actionEvent) {
+        navigateTo("/SupplierPage.fxml");
+    }
 }
