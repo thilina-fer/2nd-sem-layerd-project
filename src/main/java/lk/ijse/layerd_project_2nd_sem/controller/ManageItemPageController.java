@@ -144,9 +144,6 @@ public class ManageItemPageController {
         }
     }
 
-    public void goToDashboard(MouseEvent mouseEvent) {
-    }
-
     public void search(KeyEvent event) {
     }
 

@@ -7,7 +7,7 @@ import lk.ijse.layerd_project_2nd_sem.dto.UserDTO;
 import java.util.ArrayList;
 
 public interface UserBO extends SuperBO {
-    ArrayList<SupplierDTO> getAllIUser() throws Exception;
+    ArrayList<UserDTO> getAllIUser() throws Exception;
     boolean saveUser(UserDTO userDTO) throws Exception;
     boolean updateUser(UserDTO userDTO) throws Exception;
     boolean deleteUser(String userId) throws Exception;

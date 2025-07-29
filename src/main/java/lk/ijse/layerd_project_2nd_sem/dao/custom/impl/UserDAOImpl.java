@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class UserDAOImpl implements UserDAO {
     @Override
     public ArrayList<User> getAll() throws SQLException, ClassNotFoundException {
-        ResultSet resultSet = SQLUtil.executeQuery("SELECT * FROM users");
+        ResultSet resultSet = SQLUtil.executeQuery("SELECT * FROM user");
         ArrayList<User> users = new ArrayList<>();
         while (resultSet.next()) {
             User entity = new User(
@@ -30,7 +30,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public boolean save(User entity) throws SQLException, ClassNotFoundException {
-        return SQLUtil.executeUpdate("INSERT INTO users VALUES(?,?,?,?,?,?,?)",
+        return SQLUtil.executeUpdate("INSERT INTO user VALUES(?,?,?,?,?,?,?)",
                 entity.getUserId(),
                 entity.getUserName(),
                 entity.getPassword(),
@@ -43,7 +43,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public boolean update(User entity) throws SQLException, ClassNotFoundException {
-        return SQLUtil.executeUpdate("UPDATE users SET user_name = ?, password = ?, email = ?, contact = ?, address = ?, role = ? WHERE user_id = ?",
+        return SQLUtil.executeUpdate("UPDATE user SET user_name = ?, password = ?, email = ?, contact = ?, address = ?, role = ? WHERE user_id = ?",
                 entity.getUserName(),
                 entity.getPassword(),
                 entity.getEmail(),
@@ -56,7 +56,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public boolean delete(String id) throws SQLException, ClassNotFoundException {
-        return SQLUtil.executeUpdate("DELETE FROM users WHERE user_id = ?",
+        return SQLUtil.executeUpdate("DELETE FROM user WHERE user_id = ?",
                 id);
     }
 
