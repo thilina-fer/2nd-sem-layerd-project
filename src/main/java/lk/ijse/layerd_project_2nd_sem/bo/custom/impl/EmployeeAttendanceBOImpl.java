@@ -15,26 +15,47 @@ public class EmployeeAttendanceBOImpl implements EmployeeAttendanceBO {
     public ArrayList<EmployeeAttendanceDTO> getAllEmployeeAttendance() throws Exception {
        ArrayList<EmployeeAttendance> attendances = employeeAttendanceDAO.getAll();
        ArrayList<EmployeeAttendanceDTO> employeeAttendanceDTOS = new ArrayList<>();
-
+         for (EmployeeAttendance attendance : attendances) {
+              employeeAttendanceDTOS.add(new EmployeeAttendanceDTO(
+                     attendance.getAttendanceId(),
+                     attendance.getEmployeeNic(),
+                     attendance.getDate(),
+                     attendance.getAttendTime(),
+                     attendance.getDuration()
+              ));
+         }
+         return employeeAttendanceDTOS;
     }
 
     @Override
     public boolean saveEmployeeAttendance(EmployeeAttendanceDTO employeeAttendanceDTO) throws Exception {
-        return false;
+        return employeeAttendanceDAO.save(new EmployeeAttendance(
+               employeeAttendanceDTO.getAttendanceId(),
+               employeeAttendanceDTO.getEmployeeNic(),
+               employeeAttendanceDTO.getDate(),
+               employeeAttendanceDTO.getAttendTime(),
+               employeeAttendanceDTO.getDuration()
+        ));
     }
 
     @Override
     public boolean updateEmployeeAttendance(EmployeeAttendanceDTO employeeAttendanceDTO) throws Exception {
-        return false;
+        return employeeAttendanceDAO.update(new EmployeeAttendance(
+                employeeAttendanceDTO.getAttendanceId(),
+                employeeAttendanceDTO.getEmployeeNic(),
+                employeeAttendanceDTO.getDate(),
+                employeeAttendanceDTO.getAttendTime(),
+                employeeAttendanceDTO.getDuration()
+        ));
     }
 
     @Override
     public boolean deleteEmployeeAttendance(String attendanceId) throws Exception {
-        return false;
+        return employeeAttendanceDAO.delete(attendanceId);
     }
 
     @Override
     public String generateEmployeeAttendanceId() throws Exception {
-        return "";
+        return employeeAttendanceDAO.generateNewId();
     }
 }
