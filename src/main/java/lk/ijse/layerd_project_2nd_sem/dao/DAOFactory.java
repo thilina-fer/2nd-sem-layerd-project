@@ -1,9 +1,6 @@
 package lk.ijse.layerd_project_2nd_sem.dao;
 
-import lk.ijse.layerd_project_2nd_sem.dao.custom.impl.CustomerDAOImpl;
-import lk.ijse.layerd_project_2nd_sem.dao.custom.impl.EmployeeDAOImpl;
-import lk.ijse.layerd_project_2nd_sem.dao.custom.impl.ItemDAOImpl;
-import lk.ijse.layerd_project_2nd_sem.dao.custom.impl.SupplierDAOImpl;
+import lk.ijse.layerd_project_2nd_sem.dao.custom.impl.*;
 
 import static lk.ijse.layerd_project_2nd_sem.bo.BOFactory.BOTypes.ITEM;
 
@@ -17,7 +14,8 @@ public class DAOFactory {
         CUSTOMER,
         ITEM,
         EMPLOYEE,
-        SUPPLIER
+        SUPPLIER,
+        USER
 
 
     }
@@ -34,6 +32,9 @@ public class DAOFactory {
 
             case SUPPLIER:
                 return new SupplierDAOImpl();
+
+            case USER:
+                return new UserDAOImpl();
             default:
                 return null;
         }

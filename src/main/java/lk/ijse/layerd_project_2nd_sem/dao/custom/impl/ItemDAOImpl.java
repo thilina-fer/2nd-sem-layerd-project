@@ -28,24 +28,24 @@ public class ItemDAOImpl implements ItemDAO {
     }
 
     @Override
-    public boolean save(Item customerDTO) throws SQLException, ClassNotFoundException {
+    public boolean save(Item entity) throws SQLException, ClassNotFoundException {
         return SQLUtil.executeUpdate("INSERT INTO item VALUES(?,?,?,?,?)",
-                customerDTO.getItemId(),
-                customerDTO.getItemName(),
-                customerDTO.getQuantity(),
-                customerDTO.getBuyPrice(),
-                customerDTO.getSellPrice()
+                entity.getItemId(),
+                entity.getItemName(),
+                entity.getQuantity(),
+                entity.getBuyPrice(),
+                entity.getSellPrice()
         );
     }
 
     @Override
-    public boolean update(Item customerDTO) throws SQLException, ClassNotFoundException {
+    public boolean update(Item entity) throws SQLException, ClassNotFoundException {
         return SQLUtil.executeUpdate("UPDATE item SET item_name = ? , quantity = ? , buying_price = ? , selling_price = ? WHERE item_id = ?",
-                customerDTO.getItemName(),
-                customerDTO.getQuantity(),
-                customerDTO.getBuyPrice(),
-                customerDTO.getSellPrice(),
-                customerDTO.getItemId()
+                entity.getItemName(),
+                entity.getQuantity(),
+                entity.getBuyPrice(),
+                entity.getSellPrice(),
+                entity.getItemId()
         );
     }
 
