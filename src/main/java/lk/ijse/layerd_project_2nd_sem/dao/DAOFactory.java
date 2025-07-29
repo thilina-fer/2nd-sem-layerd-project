@@ -15,7 +15,8 @@ public class DAOFactory {
     public enum DAOTypes {
         CUSTOMER,
         ITEM,
-        EMPLOYEE
+        EMPLOYEE,
+        SUPPLIER
 
 
     }
@@ -29,6 +30,9 @@ public class DAOFactory {
 
             case EMPLOYEE:
                 return new EmployeeDAOImpl();
+
+            case SUPPLIER:
+                return new SupplierDAOImpl();
             default:
                 return null;
         }
