@@ -13,4 +13,6 @@ public class Supplier {
     private String supplierName;
     private String supplierContact;
     private String supplierAddress;
+
+
 }

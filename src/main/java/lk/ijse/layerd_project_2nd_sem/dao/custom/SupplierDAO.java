@@ -3,5 +3,5 @@ package lk.ijse.layerd_project_2nd_sem.dao.custom;
 import lk.ijse.layerd_project_2nd_sem.dao.CrudDAO;
 import lk.ijse.layerd_project_2nd_sem.entity.Supplier;
 
-public interface SupplierDao extends CrudDAO<Supplier> {
+public interface SupplierDAO extends CrudDAO<Supplier> {
 }

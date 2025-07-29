@@ -31,12 +31,19 @@ public class ItemBOImpl implements ItemBO {
 
     @Override
     public boolean saveItem(ItemDTO itemDTO) throws Exception {
-        return false;
+        return itemDAO.save(new Item(
+                itemDTO.getItemId(),
+                itemDTO.getItemName(),
+                itemDTO.getQuantity(),
+                itemDTO.getBuyPrice(),
+                itemDTO.getSellPrice()
+        ));
     }
 
     @Override
     public boolean updateItem(ItemDTO itemDTO) throws Exception {
-        return itemDAO.update(new Item(itemDTO.getItemId(),
+        return itemDAO.update(new Item(
+                itemDTO.getItemId(),
                 itemDTO.getItemName(),
                 itemDTO.getQuantity(),
                 itemDTO.getBuyPrice(),

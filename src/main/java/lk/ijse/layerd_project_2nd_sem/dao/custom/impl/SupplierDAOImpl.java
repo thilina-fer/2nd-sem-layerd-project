@@ -1,14 +1,14 @@
 package lk.ijse.layerd_project_2nd_sem.dao.custom.impl;
 
 import lk.ijse.layerd_project_2nd_sem.dao.SQLUtil;
-import lk.ijse.layerd_project_2nd_sem.dao.custom.SupplierDao;
+import lk.ijse.layerd_project_2nd_sem.dao.custom.SupplierDAO;
 import lk.ijse.layerd_project_2nd_sem.entity.Supplier;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class SupplierDAOImpl implements SupplierDao {
+public class SupplierDAOImpl implements SupplierDAO {
 
     @Override
     public ArrayList<Supplier> getAll() throws SQLException, ClassNotFoundException {
