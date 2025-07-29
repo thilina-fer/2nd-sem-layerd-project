@@ -281,4 +281,8 @@ public class ManageEmployeePageController {
     public void gotoHomePage(ActionEvent event) {
             navigateTo("/DashboardPage.fxml");
     }
+
+    public void goToAttendancePage(ActionEvent actionEvent) {
+        navigateTo("/EmployeeAttendancePage.fxml");
+    }
 }

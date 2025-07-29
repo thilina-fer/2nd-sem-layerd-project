@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="ancUserPage" prefHeight="700.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.layerd_project_2nd_sem.controller.ManageUserPageController">
+<AnchorPane fx:id="ancAttendancePage" prefHeight="700.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.layerd_project_2nd_sem.controller.ManageEmployeeAttendancePageController">
     <children>
         <HBox layoutX="14.0" layoutY="14.0" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
             <children>
@@ -37,7 +37,7 @@
                                         <Font size="14.0" />
                                     </font>
                                 </Label>
-                                <Label text="User">
+                                <Label text="Attendance">
                                     <HBox.margin>
                                         <Insets top="2.0" />
                                     </HBox.margin>
@@ -66,20 +66,20 @@
                             <children>
                                 <HBox prefHeight="50.0" prefWidth="350.0" style="-fx-background-color: #fff; -fx-background-radius: 20;">
                                     <children>
-                                        <Label text="User Id" HBox.hgrow="ALWAYS">
+                                        <Label text="Attendance Id" HBox.hgrow="ALWAYS">
                                             <font>
                                                 <Font name="System Bold" size="20.0" />
                                             </font>
                                             <HBox.margin>
-                                                <Insets left="10.0" top="5.0" />
+                                                <Insets left="10.0" top="10.0" />
                                             </HBox.margin>
                                         </Label>
-                                        <Label fx:id="lblUserId" text="01" HBox.hgrow="ALWAYS">
+                                        <Label fx:id="lblAttendanceId" text="01" HBox.hgrow="ALWAYS">
                                             <font>
                                                 <Font name="System Bold" size="20.0" />
                                             </font>
                                             <HBox.margin>
-                                                <Insets left="100.0" top="5.0" />
+                                                <Insets left="100.0" top="10.0" />
                                             </HBox.margin>
                                         </Label>
                                     </children>
@@ -96,7 +96,7 @@
                             <children>
                                 <HBox prefHeight="17.0" prefWidth="350.0">
                                     <children>
-                                        <Label text="Username" HBox.hgrow="ALWAYS">
+                                        <Label text="Employee  Nic" HBox.hgrow="ALWAYS">
                                             <HBox.margin>
                                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                             </HBox.margin>
@@ -106,65 +106,45 @@
                                         <Insets top="-10.0" />
                                     </VBox.margin>
                                 </HBox>
-                                <TextField fx:id="txtName" prefHeight="30.0" prefWidth="330.0" promptText="adminAdmin" style="-fx-background-radius: 20;">
+                                <TextField fx:id="txtNic" prefHeight="30.0" prefWidth="330.0" promptText="123456789102" style="-fx-background-radius: 20;">
                                     <VBox.margin>
                                         <Insets left="10.0" right="10.0" top="-12.0" />
                                     </VBox.margin>
                                 </TextField>
                                 <HBox prefHeight="17.0" prefWidth="350.0">
                                     <children>
-                                        <Label text="email" HBox.hgrow="ALWAYS">
+                                        <Label text="Date" HBox.hgrow="ALWAYS">
                                             <HBox.margin>
                                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                             </HBox.margin>
                                         </Label>
                                     </children>
                                 </HBox>
-                                <TextField fx:id="txtEmail" prefHeight="30.0" prefWidth="330.0" promptText="admin@gmail.com" style="-fx-background-radius: 20;" VBox.vgrow="ALWAYS">
+                                <TextField fx:id="txtDate" prefHeight="30.0" prefWidth="330.0" style="-fx-background-radius: 20;" VBox.vgrow="ALWAYS">
                                     <VBox.margin>
                                         <Insets left="10.0" right="10.0" top="-12.0" />
                                     </VBox.margin>
                                 </TextField>
                                 <HBox prefHeight="17.0" prefWidth="350.0">
                                     <children>
-                                        <Label text="Password" HBox.hgrow="ALWAYS">
+                                        <Label text="Attend Time" HBox.hgrow="ALWAYS">
                                             <HBox.margin>
                                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                             </HBox.margin>
                                         </Label>
                                     </children>
                                 </HBox>
-                                <TextField fx:id="txtPassword" prefHeight="30.0" prefWidth="330.0" promptText="admin123@" style="-fx-background-radius: 20;">
+                                <TextField fx:id="txtAttendTime" prefHeight="30.0" prefWidth="330.0" promptText="05:00:00" style="-fx-background-radius: 20;">
                                     <VBox.margin>
                                         <Insets left="10.0" right="10.0" top="-12.0" />
                                     </VBox.margin>
                                 </TextField>
-                                <Label text="Contact ">
-                                    <VBox.margin>
-                                        <Insets left="10.0" top="10.0" />
-                                    </VBox.margin>
-                                </Label>
-                                <TextField fx:id="txtContact" prefHeight="30.0" prefWidth="330.0" promptText="0777777777" style="-fx-background-radius: 20;">
-                                    <VBox.margin>
-                                        <Insets left="10.0" right="10.0" />
-                                    </VBox.margin>
-                                </TextField>
-                                <Label text="Address">
+                                <Label text="Duration">
                                     <VBox.margin>
                                         <Insets left="10.0" right="10.0" top="8.0" />
                                     </VBox.margin>
                                 </Label>
-                                <TextField fx:id="txtAddress" prefHeight="30.0" prefWidth="330.0" promptText="Welimada" style="-fx-background-radius: 20;">
-                                    <VBox.margin>
-                                        <Insets left="10.0" right="10.0" />
-                                    </VBox.margin>
-                                </TextField>
-                                <Label text="Job role">
-                                    <VBox.margin>
-                                        <Insets left="10.0" top="7.0" />
-                                    </VBox.margin>
-                                </Label>
-                                <TextField fx:id="txtRole" prefHeight="30.0" prefWidth="330.0" style="-fx-background-radius: 20;">
+                                <TextField fx:id="txtDuration" prefHeight="30.0" prefWidth="330.0" promptText="05:00:00" style="-fx-background-radius: 20;">
                                     <VBox.margin>
                                         <Insets left="10.0" right="10.0" />
                                     </VBox.margin>
@@ -227,25 +207,22 @@
                     <children>
                         <BorderPane prefHeight="125.0" prefWidth="974.0">
                             <center>
-                                <Label text="User Details" BorderPane.alignment="CENTER">
+                                <Label text="AttendanceDetails" BorderPane.alignment="CENTER">
                                     <font>
                                         <Font name="Bookman Old Style Bold" size="32.0" />
                                     </font>
                                 </Label>
                             </center>
                             <right>
-
                             </right>
                         </BorderPane>
-                        <TableView fx:id="tblUser" onMouseClicked="#onClickTable" prefHeight="437.0" prefWidth="930.0" stylesheets="@assests/tableView.css">
+                        <TableView fx:id="tblAttendance" onMouseClicked="#onClickTable" prefHeight="424.0" prefWidth="925.0" stylesheets="@assests/tableView.css">
                             <columns>
-                                <TableColumn fx:id="colId" prefWidth="75.0" text="User Id" />
-                                <TableColumn fx:id="colName" prefWidth="75.0" text="Username " />
-                                <TableColumn fx:id="colEmail" prefWidth="75.0" text="email" />
-                                <TableColumn fx:id="colPassword" prefWidth="75.0" text="Password" />
-                                <TableColumn fx:id="colContact" prefWidth="75.0" text="Contact" />
-                                <TableColumn fx:id="colAddress" prefWidth="75.0" text="Address" />
-                                <TableColumn fx:id="colRole" prefWidth="75.0" text="Job Role" />
+                                <TableColumn fx:id="colId" prefWidth="75.0" text="Attendance Id" />
+                                <TableColumn fx:id="colNic" prefWidth="75.0" text="Nic" />
+                                <TableColumn fx:id="colDate" prefWidth="75.0" text="Date" />
+                                <TableColumn fx:id="colAttendTime" prefWidth="75.0" text="Attend Time" />
+                                <TableColumn fx:id="colDuration" prefWidth="75.0" text="Duration" />
                             </columns>
                             <VBox.margin>
                                 <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
