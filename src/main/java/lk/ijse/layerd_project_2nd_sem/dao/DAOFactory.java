@@ -15,7 +15,8 @@ public class DAOFactory {
         ITEM,
         EMPLOYEE,
         SUPPLIER,
-        USER
+        USER,
+        EMPLOYEE_ATTENDANCE
 
 
     }
@@ -35,6 +36,10 @@ public class DAOFactory {
 
             case USER:
                 return new UserDAOImpl();
+
+            case EMPLOYEE_ATTENDANCE:
+                return new EmployeeAttendanceDAOImpl();
+
             default:
                 return null;
         }
