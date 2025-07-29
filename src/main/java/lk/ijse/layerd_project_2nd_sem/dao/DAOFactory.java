@@ -1,6 +1,7 @@
 package lk.ijse.layerd_project_2nd_sem.dao;
 
 import lk.ijse.layerd_project_2nd_sem.dao.custom.impl.CustomerDAOImpl;
+import lk.ijse.layerd_project_2nd_sem.dao.custom.impl.EmployeeDAOImpl;
 import lk.ijse.layerd_project_2nd_sem.dao.custom.impl.ItemDAOImpl;
 
 import static lk.ijse.layerd_project_2nd_sem.bo.BOFactory.BOTypes.ITEM;
@@ -26,6 +27,8 @@ public class DAOFactory {
             case ITEM:
                 return new ItemDAOImpl();
 
+            case EMPLOYEE:
+                return new EmployeeDAOImpl();
             default:
                 return null;
         }
