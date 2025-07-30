@@ -13,6 +13,7 @@ import lk.ijse.layerd_project_2nd_sem.bo.custom.EmployeeBO;
 import lk.ijse.layerd_project_2nd_sem.dto.EmployeeDTO;
 import lk.ijse.layerd_project_2nd_sem.view.EmployeeTM;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 public class ManageEmployeePageController {
@@ -27,13 +28,13 @@ public class ManageEmployeePageController {
     public TextField txtNic;
 
     public TableView<EmployeeTM> tblEmployee;
-    public TableColumn<EmployeeTM , String> colId;
-    public TableColumn<EmployeeTM , String> colName;
-    public TableColumn<EmployeeTM , String> colContact;
-    public TableColumn<EmployeeTM , String> colAddress;
-    public TableColumn<EmployeeTM , String> colNic;
-    public TableColumn<EmployeeTM , Integer> colAge;
-    public TableColumn<EmployeeTM , Double> colSalary;
+    public TableColumn<EmployeeTM, String> colId;
+    public TableColumn<EmployeeTM, String> colName;
+    public TableColumn<EmployeeTM, String> colContact;
+    public TableColumn<EmployeeTM, String> colAddress;
+    public TableColumn<EmployeeTM, String> colNic;
+    public TableColumn<EmployeeTM, Integer> colAge;
+    public TableColumn<EmployeeTM, Double> colSalary;
 
 
     public Button btnSave;
@@ -43,9 +44,9 @@ public class ManageEmployeePageController {
 
     private final String agePattern = "^(\\d+)$";
     private final String salaryPattern = "^(\\d+)$";
-    
+
     EmployeeBO employeeBO = (EmployeeBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.EMPLOYEE);
-    
+
     public void initialize() {
         colId.setCellValueFactory(new PropertyValueFactory<>("employeeId"));
         colName.setCellValueFactory(new PropertyValueFactory<>("employeeName"));
@@ -116,21 +117,21 @@ public class ManageEmployeePageController {
         String employeeSalary = txtSalary.getText();
 
         boolean isValidContact = employeeContact.length() == 10;
-       // boolean isValidNic = employeeNic.length() == 12 && employeeNic.charAt(9) == '-';
+        // boolean isValidNic = employeeNic.length() == 12 && employeeNic.charAt(9) == '-';
         boolean isValidAge = employeeAge.matches(agePattern);
         boolean isValidSalary = employeeSalary.matches(salaryPattern);
 
-        txtName.setStyle(txtName.getStyle()+";-fx-border-color: #7367F0;");
-        txtContact.setStyle(txtContact.getStyle()+";-fx-border-color: #7367F0");
-        txtAddress.setStyle(txtAddress.getStyle()+";-fx-border-color: #7367F0");
-        txtNic.setStyle(txtNic.getStyle()+";-fx-border-color: #7367F0");
-        txtAge.setStyle(txtAge.getStyle()+";-fx-border-color: #7367F0");
-        txtSalary.setStyle(txtSalary.getStyle()+";-fx-border-color: #7367F0");
+        txtName.setStyle(txtName.getStyle() + ";-fx-border-color: #7367F0;");
+        txtContact.setStyle(txtContact.getStyle() + ";-fx-border-color: #7367F0");
+        txtAddress.setStyle(txtAddress.getStyle() + ";-fx-border-color: #7367F0");
+        txtNic.setStyle(txtNic.getStyle() + ";-fx-border-color: #7367F0");
+        txtAge.setStyle(txtAge.getStyle() + ";-fx-border-color: #7367F0");
+        txtSalary.setStyle(txtSalary.getStyle() + ";-fx-border-color: #7367F0");
 
-        if (!isValidContact) txtContact.setStyle(txtContact.getStyle()+";-fx-border-color: red;");
-       // if (!isValidNic) txtNic.setStyle(txtNic.getStyle()+";-fx-border-color: red;");
-        if (!isValidAge) txtAge.setStyle(txtAge.getStyle()+";-fx-border-color: red;");
-        if (!isValidSalary) txtSalary.setStyle(txtSalary.getStyle()+";-fx-border-color: red;");
+        if (!isValidContact) txtContact.setStyle(txtContact.getStyle() + ";-fx-border-color: red;");
+        // if (!isValidNic) txtNic.setStyle(txtNic.getStyle()+";-fx-border-color: red;");
+        if (!isValidAge) txtAge.setStyle(txtAge.getStyle() + ";-fx-border-color: red;");
+        if (!isValidSalary) txtSalary.setStyle(txtSalary.getStyle() + ";-fx-border-color: red;");
 
         int parsedAge = Integer.parseInt(employeeAge);
         double parsedSalary = Double.parseDouble(employeeSalary);
@@ -160,7 +161,7 @@ public class ManageEmployeePageController {
                     parsedSalary
             ));
 
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             new Alert(Alert.AlertType.ERROR, "Failed to Save Employee").show();
         } finally {
@@ -200,7 +201,7 @@ public class ManageEmployeePageController {
                     parsedAge,
                     parsedSalary
             ));
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             new Alert(Alert.AlertType.ERROR, "Failed to Update Employee").show();
         } finally {
@@ -259,8 +260,6 @@ public class ManageEmployeePageController {
     public void goToEmployeeAttendancePage(MouseEvent mouseEvent) {
     }
 
-    public void search(KeyEvent event) {
-    }
 
     public void navigateTo(String path) {
         try {
@@ -273,16 +272,48 @@ public class ManageEmployeePageController {
 
             ancEmployeePage.getChildren().add(anchorPane);
 
-        }catch (Exception e){
-            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             e.printStackTrace();
         }
     }
+
     public void gotoHomePage(ActionEvent event) {
-            navigateTo("/DashboardPage.fxml");
+        navigateTo("/DashboardPage.fxml");
     }
 
     public void goToAttendancePage(ActionEvent actionEvent) {
         navigateTo("/EmployeeAttendancePage.fxml");
+    }
+
+    public void search(KeyEvent event) {
+        String searchText = searchField.getText();
+        if (searchText.isEmpty()) {
+            try {
+                loadTableData();
+            } catch (Exception e) {
+                e.printStackTrace();
+                new Alert(Alert.AlertType.ERROR, "Faild to load Customers").show();
+            }
+        } else {
+            try {
+                ArrayList<EmployeeDTO> customerList = employeeBO.searchEmployee(searchText);
+                tblEmployee.setItems(FXCollections.observableArrayList(
+                        customerList.stream()
+                                .map(employeeDto -> new EmployeeTM(
+                                        employeeDto.getEmployeeId(),
+                                        employeeDto.getEmployeeName(),
+                                        employeeDto.getEmployeeContact(),
+                                        employeeDto.getEmployeeAddress(),
+                                        employeeDto.getEmployeeNic(),
+                                        employeeDto.getEmployeeAge(),
+                                        employeeDto.getSalary()
+                                )).toList()
+                ));
+            } catch (Exception e) {
+                e.printStackTrace();
+                new Alert(Alert.AlertType.ERROR, "Failed to search customers").show();
+            }
+        }
     }
 }
