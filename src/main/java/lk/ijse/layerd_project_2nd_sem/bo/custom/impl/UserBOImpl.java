@@ -65,4 +65,22 @@ public class UserBOImpl implements UserBO {
     public String generateUserId() throws Exception {
         return userDAO.generateNewId();
     }
+
+    @Override
+    public ArrayList<UserDTO> searchUser(String text) throws Exception {
+        ArrayList<User> users = userDAO.search(text);
+        ArrayList<UserDTO> userDTOs = new ArrayList<>();
+        for (User user : users) {
+            userDTOs.add(new UserDTO(
+                    user.getUserId(),
+                    user.getUserName(),
+                    user.getPassword(),
+                    user.getEmail(),
+                    user.getContact(),
+                    user.getAddress(),
+                    user.getRole()
+            ));
+        }
+        return userDTOs;
+    }
 }
