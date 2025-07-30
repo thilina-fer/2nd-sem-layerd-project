@@ -173,10 +173,6 @@ public class ManageSupplierPageController {
             }
         }
     }
-    public void search(KeyEvent keyEvent) {
-    }
-
-
 
     public void btnResetOnAction(ActionEvent actionEvent) {
         resetPage();
@@ -214,5 +210,27 @@ public class ManageSupplierPageController {
 
     public void goTHomePage(ActionEvent actionEvent) {
         navigateTo("/DashboardPage.fxml");
+    }
+
+    public void search(KeyEvent keyEvent) {
+        String searchText = searchField.getText();
+        try {
+            if (searchText.isEmpty()) {
+                loadTableData();
+            } else {
+                tblSupplier.setItems(FXCollections.observableArrayList(
+                        supplierBO.searchSupplier(searchText).stream().map(
+                                supplierDTO -> new SupplierTM(
+                                        supplierDTO.getSupplierId(),
+                                        supplierDTO.getSupplierName(),
+                                        supplierDTO.getSupplierContact(),
+                                        supplierDTO.getSupplierAddress()
+                                )).toList()
+                ));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).show();
+        }
     }
 }
