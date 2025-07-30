@@ -80,6 +80,23 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
     @Override
     public ArrayList<Employee> search(String searchText) throws SQLException, ClassNotFoundException {
-        return null;
+        ArrayList<Employee> dtos = new ArrayList<>();
+        String sql = "SELECT * FROM employee WHERE emp_id LIKE ? OR emp_name LIKE ? OR emp_contact LIKE ? OR emp_address LIKE ? OR emp_age LIKE ? OR salary LIKE ?";
+        String pattern = "%" + searchText + "%";
+        ResultSet resultSet = SQLUtil.executeQuery(sql, pattern, pattern, pattern, pattern, pattern, pattern);
+
+        while (resultSet.next()) {
+            Employee employee = new Employee(
+                    resultSet.getString(1),
+                    resultSet.getString(2),
+                    resultSet.getString(3),
+                    resultSet.getString(4),
+                    resultSet.getString(5),
+                    resultSet.getInt(6),
+                    resultSet.getDouble(7)
+            );
+            dtos.add(employee);
+        }
+        return dtos;
     }
 }
