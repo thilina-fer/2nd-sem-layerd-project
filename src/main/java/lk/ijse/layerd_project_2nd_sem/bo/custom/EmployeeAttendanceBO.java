@@ -12,4 +12,5 @@ public interface EmployeeAttendanceBO extends SuperBO {
     boolean updateEmployeeAttendance(EmployeeAttendanceDTO employeeAttendanceDTO) throws Exception;
     boolean deleteEmployeeAttendance(String attendanceId) throws Exception;
     String generateEmployeeAttendanceId() throws Exception;
+    ArrayList<EmployeeAttendanceDTO> searchAttendance(String text) throws Exception;
 }

@@ -202,11 +202,6 @@ public class ManageEmployeeAttendancePageController {
         resetPage();
     }
 
-    public void search(KeyEvent keyEvent) {
-    }
-
-
-
     public void onClickTable(MouseEvent mouseEvent) {
         EmployeeAttendanceTM selectedRow = tblAttendance.getSelectionModel().getSelectedItem();
         if (selectedRow != null) {
@@ -240,5 +235,33 @@ public class ManageEmployeeAttendancePageController {
     }
     public void goToHomePage(ActionEvent actionEvent) {
         navigateTo("/DashboardPage.fxml");
+    }
+
+    public void search(KeyEvent keyEvent) {
+        String searchText = searchField.getText().trim();
+        if (searchText.isEmpty()) {
+            try {
+                loadTableData();
+            } catch (Exception e) {
+                e.printStackTrace();
+                new Alert(Alert.AlertType.ERROR, "Failed to load attendance data").show();
+            }
+        } else {
+            try {
+                tblAttendance.setItems(FXCollections.observableArrayList(
+                        employeeAttendanceBO.searchAttendance(searchText).stream().map(
+                                attendance -> new EmployeeAttendanceTM(
+                                        attendance.getAttendanceId(),
+                                        attendance.getEmployeeNic(),
+                                        attendance.getDate(),
+                                        attendance.getAttendTime(),
+                                        attendance.getDuration()
+                                )).toList()
+                ));
+            } catch (Exception e) {
+                e.printStackTrace();
+                new Alert(Alert.AlertType.ERROR, "Failed to search attendance data").show();
+            }
+        }
     }
 }

@@ -73,6 +73,21 @@ public class EmployeeAttendanceDAOImpl implements EmployeeAttendanceDAO {
 
     @Override
     public ArrayList<EmployeeAttendance> search(String searchText) throws SQLException, ClassNotFoundException {
-        return null;
+        ArrayList<EmployeeAttendance> dtos = new ArrayList<>();
+        String sql = "SELECT * FROM employee_attendance WHERE attendance_id LIKE ? OR emp_nic LIKE ? OR date LIKE ? OR attend_time LIKE ? OR duration LIKE ?";
+        String pattern = "%" + searchText + "%";
+        ResultSet resultSet = SQLUtil.executeQuery(sql , pattern , pattern , pattern , pattern , pattern);
+
+        while (resultSet.next()){
+            EmployeeAttendance  employeeAttendance = new EmployeeAttendance(
+                    resultSet.getString(1),
+                    resultSet.getString(2),
+                    resultSet.getString(3),
+                    resultSet.getString(4),
+                    resultSet.getString(5)
+            );
+            dtos.add(employeeAttendance);
+        }
+        return dtos;
     }
 }

@@ -58,4 +58,20 @@ public class EmployeeAttendanceBOImpl implements EmployeeAttendanceBO {
     public String generateEmployeeAttendanceId() throws Exception {
         return employeeAttendanceDAO.generateNewId();
     }
+
+    @Override
+    public ArrayList<EmployeeAttendanceDTO> searchAttendance(String text) throws Exception {
+        ArrayList<EmployeeAttendance> attendances = employeeAttendanceDAO.search(text);
+        ArrayList<EmployeeAttendanceDTO> employeeAttendanceDTOS = new ArrayList<>();
+        for (EmployeeAttendance attendance : attendances) {
+            employeeAttendanceDTOS.add(new EmployeeAttendanceDTO(
+                    attendance.getAttendanceId(),
+                    attendance.getEmployeeNic(),
+                    attendance.getDate(),
+                    attendance.getAttendTime(),
+                    attendance.getDuration()
+            ));
+        }
+        return employeeAttendanceDTOS;
+    }
 }

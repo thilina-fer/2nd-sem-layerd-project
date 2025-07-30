@@ -293,7 +293,7 @@ public class ManageEmployeePageController {
                 loadTableData();
             } catch (Exception e) {
                 e.printStackTrace();
-                new Alert(Alert.AlertType.ERROR, "Faild to load Customers").show();
+                new Alert(Alert.AlertType.ERROR, "Failed to load Customers").show();
             }
         } else {
             try {
