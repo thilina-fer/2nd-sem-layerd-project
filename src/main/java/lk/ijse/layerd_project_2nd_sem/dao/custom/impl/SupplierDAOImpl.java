@@ -71,6 +71,20 @@ public class SupplierDAOImpl implements SupplierDAO {
 
     @Override
     public ArrayList<Supplier> search(String searchText) throws SQLException, ClassNotFoundException {
-        return null;
+        ArrayList<Supplier> dtos = new ArrayList<>();
+        String sql = "SELECT * FROM supplier WHERE supplier_id LIKE ? OR supplier_name LIKE ? OR supplier_contact LIKE ? OR supplier_address LIKE ? ";
+        String pattern = "%" + searchText + "%";
+        ResultSet resultSet = SQLUtil.executeQuery(sql, pattern, pattern, pattern, pattern);
+
+        while (resultSet.next()) {
+            Supplier supplier = new Supplier(
+                    resultSet.getString(1),
+                    resultSet.getString(2),
+                    resultSet.getString(3),
+                    resultSet.getString(4)
+            );
+            dtos.add(supplier);
+        }
+        return dtos;
     }
 }

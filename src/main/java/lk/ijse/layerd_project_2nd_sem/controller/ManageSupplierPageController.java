@@ -15,7 +15,7 @@ import lk.ijse.layerd_project_2nd_sem.view.SupplierTM;
 
 import java.util.Optional;
 
-public class ManageSupplierPageCController {
+public class ManageSupplierPageController {
     public Label lblSupplierId;
     public TextField txtName;
     public TextField txtContact;
