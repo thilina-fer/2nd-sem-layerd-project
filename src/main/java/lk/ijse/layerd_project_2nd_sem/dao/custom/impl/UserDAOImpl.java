@@ -79,6 +79,23 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public ArrayList<User> search(String searchText) throws SQLException, ClassNotFoundException {
-        return null;
+        ArrayList<User> dtos = new ArrayList<>();
+        String sql = "SELECT * FROM user WHERE user_id LIKE ? OR user_name LIKE ? OR email LIKE ? OR password LIKE ? OR contact LIKE ? OR address LIKE  ? OR role LIKE ?";
+        String pattern = "%" + searchText + "%";
+        ResultSet resultSet = SQLUtil.executeQuery(sql , pattern , pattern , pattern , pattern ,pattern , pattern , pattern);
+
+        while (resultSet.next()) {
+            User user = new User(
+                    resultSet.getString("user_id"),
+                    resultSet.getString("user_name"),
+                    resultSet.getString("email"),
+                    resultSet.getString("password"),
+                    resultSet.getString("contact"),
+                    resultSet.getString("address"),
+                    resultSet.getString("role")
+            );
+            dtos.add(user);
+        }
+        return dtos;
     }
 }

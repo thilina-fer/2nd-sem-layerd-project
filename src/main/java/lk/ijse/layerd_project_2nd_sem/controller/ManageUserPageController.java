@@ -262,8 +262,4 @@ public class ManageUserPageController {
     }
     public void search(KeyEvent keyEvent) {
     }
-
-
-
-
 }
