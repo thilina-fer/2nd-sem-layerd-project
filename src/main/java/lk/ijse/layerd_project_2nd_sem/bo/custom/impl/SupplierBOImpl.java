@@ -2,9 +2,7 @@ package lk.ijse.layerd_project_2nd_sem.bo.custom.impl;
 
 import lk.ijse.layerd_project_2nd_sem.bo.custom.SupplierBO;
 import lk.ijse.layerd_project_2nd_sem.dao.DAOFactory;
-import lk.ijse.layerd_project_2nd_sem.dao.custom.ItemDAO;
 import lk.ijse.layerd_project_2nd_sem.dao.custom.SupplierDAO;
-import lk.ijse.layerd_project_2nd_sem.dto.ItemDTO;
 import lk.ijse.layerd_project_2nd_sem.dto.SupplierDTO;
 import lk.ijse.layerd_project_2nd_sem.entity.Supplier;
 
@@ -55,5 +53,20 @@ public class SupplierBOImpl implements SupplierBO {
     @Override
     public String generateSupplierId() throws Exception {
         return supplierDAO.generateNewId();
+    }
+
+    @Override
+    public ArrayList<SupplierDTO> searchSupplier(String text) throws Exception {
+        ArrayList<Supplier> suppliers = supplierDAO.search(text);
+        ArrayList<SupplierDTO> supplierDTOs = new ArrayList<>();
+        for (Supplier s : suppliers) {
+            supplierDTOs.add(new SupplierDTO(
+                    s.getSupplierId(),
+                    s.getSupplierName(),
+                    s.getSupplierContact(),
+                    s.getSupplierAddress()
+            ));
+        }
+        return supplierDTOs;
     }
 }
