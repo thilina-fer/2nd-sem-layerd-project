@@ -144,10 +144,6 @@ public class ManageItemPageController {
         }
     }
 
-    public void search(KeyEvent event) {
-    }
-
-
 
     public void btnUpdateOnAction(ActionEvent event) throws Exception {
         String itemId = lblItemId.getText();
@@ -251,4 +247,26 @@ public class ManageItemPageController {
     public void goToHomePage(ActionEvent actionEvent) {
         navigateTo("/DashboardPage.fxml");
     }
+    public void search(KeyEvent event) {
+        String text = searchField.getText();
+        try {
+            if (text.isEmpty()) {
+                loadTableData();
+            } else {
+                tblItem.setItems(FXCollections.observableArrayList(
+                        itemBO.searchItem(text).stream().map(
+                                itemDTO -> new ItemTM(
+                                        itemDTO.getItemId(),
+                                        itemDTO.getItemName(),
+                                        itemDTO.getQuantity(),
+                                        itemDTO.getBuyPrice(),
+                                        itemDTO.getSellPrice()
+                                )).toList()
+                ));
+            }
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR, "Failed to search items: " + e.getMessage()).show();
+        }
+    }
+
 }
