@@ -60,4 +60,21 @@ public class ItemBOImpl implements ItemBO {
     public String generateItemId() throws Exception {
         return itemDAO.generateNewId();
     }
+
+    @Override
+    public ArrayList<ItemDTO> searchItem(String text) throws Exception {
+        itemDAO.search(text);
+        ArrayList<Item> items = itemDAO.search(text);
+        ArrayList<ItemDTO> itemDTOS = new ArrayList<>();
+        for (Item item : items) {
+            itemDTOS.add(new ItemDTO(
+                    item.getItemId(),
+                    item.getItemName(),
+                    item.getQuantity(),
+                    item.getBuyPrice(),
+                    item.getSellPrice()
+            ));
+        }
+        return itemDTOS;
+    }
 }
