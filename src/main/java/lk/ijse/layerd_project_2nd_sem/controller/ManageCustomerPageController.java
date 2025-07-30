@@ -96,31 +96,30 @@ public class ManageCustomerPageController {
     }
 
     public void search(KeyEvent event) {
-        /*String searchText = searchField.getText();
-        if (searchText.isEmpty()) {
+        String searchText = searchField.getText();
+        if (searchText.isEmpty()){
             try {
                 loadTableData();
-            } catch (Exception e) {
+            }catch (Exception e){
                 e.printStackTrace();
                 new Alert(Alert.AlertType.ERROR, "Failed to load customers").show();
             }
-        } else {
+        }else {
             try {
-                ArrayList<CustomerDTO> searchResults = customerBO.searchCustomer(searchText);
+                ArrayList<CustomerDTO> customerList = customerBO.searchCustomer(searchText);
                 tblCustomer.setItems(FXCollections.observableArrayList(
-                        searchResults.stream().map(
-                                CustomerDTO -> new CustomerTM(
-                                        CustomerDTO.getCustomerId(),
-                                        CustomerDTO.getCustomerName(),
-                                        CustomerDTO.getCustomerContact(),
-                                        CustomerDTO.getCustomerAddress()
-                                )).toList()
+                        customerList.stream().map(customerDTO -> new CustomerTM(
+                                customerDTO.getCustomerId(),
+                                customerDTO.getCustomerName(),
+                                customerDTO.getCustomerContact(),
+                                customerDTO.getCustomerAddress()
+                        )).toList()
                 ));
-            } catch (Exception e) {
+            }catch (Exception e){
                 e.printStackTrace();
                 new Alert(Alert.AlertType.ERROR, "Failed to search customers").show();
             }
-        }*/
+        }
     }
 
     public void btnSaveOnAction(ActionEvent event) {

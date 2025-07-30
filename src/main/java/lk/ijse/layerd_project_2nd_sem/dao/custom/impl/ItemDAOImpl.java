@@ -74,22 +74,7 @@ public class ItemDAOImpl implements ItemDAO {
 
     @Override
     public ArrayList<Item> search(String searchText) throws SQLException, ClassNotFoundException {
-       /* ArrayList<ItemDTO> items = new ArrayList<>();
-        String sql = "SELECT * FROM item WHERE item_id LIKE ? OR item_name LIKE ? OR quantity LIKE ? OR buying_price LIKE ? OR selling_price LIKE ?";
-        String pattern = "%" + searchText + "%";
-        ResultSet resultSet = SQLUtil.executeQuery(sql , pattern , pattern , pattern , pattern , pattern);
+       return null;
 
-        while (resultSet.next()){
-            ItemDTO itemDto = new ItemDTO(
-                    resultSet.getString(1),
-                    resultSet.getString(2),
-                    resultSet.getInt(3),
-                    resultSet.getDouble(4),
-                    resultSet.getDouble(5)
-            );
-           items.add(itemDto);
-        }
-        return items;*/
-        return null;
     }
 }

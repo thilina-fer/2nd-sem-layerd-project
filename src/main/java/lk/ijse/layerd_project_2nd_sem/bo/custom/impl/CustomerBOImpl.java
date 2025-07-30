@@ -49,4 +49,20 @@ public class CustomerBOImpl implements CustomerBO {
     public String generateCustomerId() throws Exception {
         return customerDAO.generateNewId();
     }
+
+    @Override
+    public ArrayList<CustomerDTO> searchCustomer(String text) throws Exception {
+        customerDAO.search(text);
+        ArrayList<Customer> entity = customerDAO.search(text);
+        ArrayList<CustomerDTO> customerDTO = new ArrayList<>();
+        for (Customer c : entity) {
+            customerDTO.add(new CustomerDTO(
+                    c.getCustomerId(),
+                    c.getCustomerName(),
+                    c.getCustomerContact(),
+                    c.getCustomerAddress()
+            ));
+    }
+        return customerDTO;
+    }
 }
