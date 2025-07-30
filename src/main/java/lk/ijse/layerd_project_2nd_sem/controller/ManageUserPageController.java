@@ -261,5 +261,23 @@ public class ManageUserPageController {
         }
     }
     public void search(KeyEvent keyEvent) {
+        String searchText = searchField.getText();
+        try {
+            tblUser.setItems(FXCollections.observableArrayList(
+                    userBO.searchUser(searchText).stream().map(
+                            userDTO -> new UserTM(
+                                    userDTO.getUserId(),
+                                    userDTO.getUserName(),
+                                    userDTO.getEmail(),
+                                    userDTO.getPassword(),
+                                    userDTO.getContact(),
+                                    userDTO.getAddress(),
+                                    userDTO.getRole()
+                            )).toList()
+            ));
+        } catch (Exception e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).show();
+        }
     }
 }
