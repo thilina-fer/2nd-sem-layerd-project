@@ -64,4 +64,22 @@ public class EmployeeBOImpl implements EmployeeBO {
     public String generateEmployeeId() throws Exception {
         return employeeDAO.generateNewId();
     }
+
+    @Override
+    public ArrayList<EmployeeDTO> searchEmployee(String text) throws Exception {
+        ArrayList<Employee> entity = employeeDAO.search(text);
+        ArrayList<EmployeeDTO> employeeDto = new ArrayList<>();
+        for (Employee e : entity) {
+            employeeDto.add(new EmployeeDTO(
+                    e.getEmployeeId(),
+                    e.getEmployeeName(),
+                    e.getEmployeeContact(),
+                    e.getEmployeeAddress(),
+                    e.getEmployeeNic(),
+                    e.getEmployeeAge(),
+                    e.getSalary()
+            ));
+        }
+        return employeeDto;
+    }
 }
