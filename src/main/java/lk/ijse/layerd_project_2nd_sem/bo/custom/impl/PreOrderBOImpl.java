@@ -71,4 +71,15 @@ public class PreOrderBOImpl implements PreOrderBO {
         }
         return preOrderDTOS;
     }
+
+
+    @Override
+    public ArrayList<String> getAllItemId() throws Exception {
+        return preOrderDAO.getAllItemId();
+    }
+
+    @Override
+    public ArrayList<String> getAllUserId() throws Exception {
+       return preOrderDAO.getAllUserId();
+    }
 }

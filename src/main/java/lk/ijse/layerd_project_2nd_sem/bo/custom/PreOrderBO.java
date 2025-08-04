@@ -13,4 +13,7 @@ public interface PreOrderBO extends SuperBO {
     boolean deletePreOrder(String preOrderId) throws Exception;
     String generatePreOrderId() throws Exception;
     ArrayList<PreOrderDTO> searchPreOrder(String text) throws Exception;
+    ArrayList<String> getAllUserId() throws Exception;
+    ArrayList<String> getAllItemId() throws Exception;
+
 }

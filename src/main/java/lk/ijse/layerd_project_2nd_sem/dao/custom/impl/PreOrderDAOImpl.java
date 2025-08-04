@@ -12,14 +12,14 @@ public class PreOrderDAOImpl implements PreOrderDAO {
 
     @Override
     public ArrayList<PreOrder> getAll() throws SQLException, ClassNotFoundException {
-        ResultSet resultSet = SQLUtil.executeQuery("SELECT * FROM pre_order");
+        ResultSet resultSet = SQLUtil.executeQuery("SELECT * FROM pre_order_manage");
         ArrayList<PreOrder> preOrders = new ArrayList<>();
         while (resultSet.next()) {
             PreOrder preOrder = new PreOrder(
                     resultSet.getString(1),
                     resultSet.getString(2),
                     resultSet.getString(3),
-                    resultSet.getDouble(5)
+                    resultSet.getDouble(4)
             );
             preOrders.add(preOrder);
         }
@@ -86,5 +86,41 @@ public class PreOrderDAOImpl implements PreOrderDAO {
             dtos.add(dto);
         }
         return dtos;
+    }
+
+
+    @Override
+    public ArrayList<String> getAllUserId() throws Exception {
+        ArrayList<String> userIds = new ArrayList<>();
+        ResultSet resultSet = SQLUtil.executeQuery("SELECT user_id FROM user");
+
+        while (resultSet.next()) {
+            userIds.add(resultSet.getString("user_id"));
+        }
+        return userIds;
+    }
+
+    @Override
+    public ArrayList<String> getAllItemId() throws Exception {
+        /*ArrayList<String> itemDetails = new ArrayList<>();
+        ResultSet resultSet = SQLUtil.executeQuery("SELECT item_id , item_name , quantity , buying_price , " +
+                "selling_price FROM item");
+
+        while (resultSet.next()){
+            String details =  resultSet.getString("item_id") + "\n" +
+                    resultSet.getString("item_name") + "\n" +
+                    resultSet.getInt("quantity") + "\n" +
+                    resultSet.getDouble("buying_price") + "\n" +
+                    resultSet.getDouble("selling_price") + "\n\n";
+
+            itemDetails.add(details);
+        }
+        return itemDetails;*/
+        ArrayList<String> itemIds = new ArrayList<>();
+        ResultSet resultSet = SQLUtil.executeQuery("SELECT item_id FROM item");
+        while (resultSet.next()) {
+            itemIds.add(resultSet.getString("item_id"));
+        }
+        return itemIds;
     }
 }

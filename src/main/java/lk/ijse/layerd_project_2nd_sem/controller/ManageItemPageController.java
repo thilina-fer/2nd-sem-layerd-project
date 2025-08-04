@@ -244,6 +244,7 @@ public class ManageItemPageController {
             e.printStackTrace();
         }
     }
+
     public void goToHomePage(ActionEvent actionEvent) {
         navigateTo("/DashboardPage.fxml");
     }
