@@ -17,7 +17,8 @@ public class DAOFactory {
         SUPPLIER,
         USER,
         EMPLOYEE_ATTENDANCE,
-        PRE_ORDER
+        PRE_ORDER,
+        ORDER
 
 
     }
@@ -43,6 +44,9 @@ public class DAOFactory {
 
             case PRE_ORDER:
                     return new PreOrderDAOImpl();
+
+            case ORDER:
+                return new OrderDAOImpl();
             default:
                 return null;
         }
