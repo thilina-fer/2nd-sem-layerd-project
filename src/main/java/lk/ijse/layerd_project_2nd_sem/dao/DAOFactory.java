@@ -18,7 +18,8 @@ public class DAOFactory {
         USER,
         EMPLOYEE_ATTENDANCE,
         PRE_ORDER,
-        ORDER
+        ORDER,
+        ORDER_DETAIL
 
 
     }
@@ -47,6 +48,9 @@ public class DAOFactory {
 
             case ORDER:
                 return new OrderDAOImpl();
+
+            case ORDER_DETAIL:
+                return new OrderDetailDAOImpl();
             default:
                 return null;
         }
