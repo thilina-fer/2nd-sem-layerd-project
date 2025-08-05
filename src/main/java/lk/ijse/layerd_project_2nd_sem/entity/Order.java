@@ -1,4 +1,4 @@
-package lk.ijse.layerd_project_2nd_sem.dto;
+package lk.ijse.layerd_project_2nd_sem.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 
-public class OrderDTO {
+public class Order {
     private String orderId;
     private String customerContact;
     private String date;
