@@ -98,4 +98,9 @@ public class UserDAOImpl implements UserDAO {
         }
         return dtos;
     }
+
+    @Override
+    public User find(String id) throws SQLException, ClassNotFoundException {
+        return null;
+    }
 }

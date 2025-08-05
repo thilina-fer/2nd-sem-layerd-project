@@ -17,7 +17,8 @@ public class BOFactory {
         SUPPLIER,
         USER,
         EMPLOYEE_ATTENDANCE,
-        PRE_ORDER
+        PRE_ORDER,
+        PLACE_ORDER
     }
     public SuperBO getBO(BOTypes boType) {
         switch (boType) {
@@ -41,6 +42,9 @@ public class BOFactory {
 
             case PRE_ORDER:
                 return new PreOrderBOImpl();
+
+            case PLACE_ORDER:
+                return new PlaceOrderBOImpl();
 
             default:
                 return null;

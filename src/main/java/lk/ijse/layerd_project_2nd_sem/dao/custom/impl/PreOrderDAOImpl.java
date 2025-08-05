@@ -88,6 +88,11 @@ public class PreOrderDAOImpl implements PreOrderDAO {
         return dtos;
     }
 
+    @Override
+    public PreOrder find(String id) throws SQLException, ClassNotFoundException {
+        return null;
+    }
+
 
     @Override
     public ArrayList<String> getAllUserId() throws Exception {

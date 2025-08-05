@@ -91,4 +91,16 @@ public class ItemDAOImpl implements ItemDAO {
         }
         return dtos;
     }
+
+    @Override
+    public Item find(String id) throws SQLException, ClassNotFoundException {
+       ResultSet resultSet = SQLUtil.executeQuery("SELECT * FROM item WHERE item_id = ?", id);
+       resultSet.next();
+       return new Item(id,
+               resultSet.getString("item_name"),
+               resultSet.getInt("quantity"),
+               resultSet.getDouble("buying_price"),
+               resultSet.getDouble("selling_price")
+               );
+    }
 }

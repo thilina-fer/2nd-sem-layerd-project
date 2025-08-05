@@ -49,4 +49,9 @@ public class OrderDAOImpl implements OrderDAO {
     public ArrayList<Order> search(String searchText) throws SQLException, ClassNotFoundException {
         return null;
     }
+
+    @Override
+    public Order find(String id) throws SQLException, ClassNotFoundException {
+        return null;
+    }
 }

@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -14,4 +16,7 @@ public class Order {
     private String date;
     private String customerName;
     private String orderTotal;
+
+    public Order(String orderId, String customerContact, LocalDate date) {
+    }
 }

@@ -90,4 +90,9 @@ public class EmployeeAttendanceDAOImpl implements EmployeeAttendanceDAO {
         }
         return dtos;
     }
+
+    @Override
+    public EmployeeAttendance find(String id) throws SQLException, ClassNotFoundException {
+        return null;
+    }
 }

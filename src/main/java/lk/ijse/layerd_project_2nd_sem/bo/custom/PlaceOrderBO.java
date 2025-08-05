@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface PlaceOrderBO extends SuperBO {
+   /* ArrayList<CustomerDTO> searchCustomer(String text) throws Exception;
+    ArrayList<ItemDTO> searchItem(String text) throws Exception;*/
     CustomerDTO searchCustomer(String id) throws SQLException,ClassNotFoundException;
     ItemDTO searchItem(String id) throws SQLException,ClassNotFoundException;
     boolean existCustomer(String id) throws SQLException, ClassNotFoundException;
@@ -18,6 +20,6 @@ public interface PlaceOrderBO extends SuperBO {
     String generateOrderId() throws SQLException,ClassNotFoundException;
     ArrayList<CustomerDTO> getAllCustomer() throws SQLException, ClassNotFoundException;
     ArrayList<ItemDTO> getAllItem() throws SQLException, ClassNotFoundException;
-    boolean placeOrder(String orderId, LocalDate orderDate, String customerId, List<OrderDetailDTO> orderDetails) throws SQLException, ClassNotFoundException;
+    boolean placeOrder(String orderId, LocalDate orderDate, String customerContact, List<OrderDetailDTO> orderDetails) throws SQLException, ClassNotFoundException;
     ItemDTO findItem(String id) throws SQLException, ClassNotFoundException;
 }

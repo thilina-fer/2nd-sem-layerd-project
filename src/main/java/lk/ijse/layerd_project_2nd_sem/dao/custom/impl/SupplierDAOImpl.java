@@ -87,4 +87,9 @@ public class SupplierDAOImpl implements SupplierDAO {
         }
         return dtos;
     }
+
+    @Override
+    public Supplier find(String id) throws SQLException, ClassNotFoundException {
+        return null;
+    }
 }
