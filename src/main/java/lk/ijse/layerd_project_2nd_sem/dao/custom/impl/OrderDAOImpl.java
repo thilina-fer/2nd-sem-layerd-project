@@ -24,7 +24,7 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
-    public boolean update(Order customerDTO) throws SQLException, ClassNotFoundException {
+    public boolean update(Order entity) throws SQLException, ClassNotFoundException {
         return false;
     }
 
