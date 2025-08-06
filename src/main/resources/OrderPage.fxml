@@ -42,7 +42,7 @@
             <children>
                 <HBox prefHeight="78.0" prefWidth="400.0" style="-fx-background-color: #fff; -fx-background-radius: 20; -fx-border-color: #7209b7; -fx-border-radius: 20; -fx-border-width: 2;">
                     <children>
-                        <Label fx:id="orderDate" prefHeight="66.0" prefWidth="295.0" text="2022-12-20">
+                        <Label fx:id="lblorderDate" prefHeight="66.0" prefWidth="295.0" text="2022-12-20">
                             <font>
                                 <Font name="Arial Bold" size="25.0" />
                             </font>
@@ -69,7 +69,7 @@
                                 <Insets left="41.0" />
                             </HBox.margin>
                         </Label>
-                        <ComboBox fx:id="cmbCustomerContact" onAction="#cmbCustomerOnAction" prefHeight="26.0" prefWidth="280.0">
+                        <ComboBox fx:id="cmbCustomerContact" prefHeight="26.0" prefWidth="280.0">
                             <HBox.margin>
                                 <Insets left="110.0" top="14.0" />
                             </HBox.margin>
@@ -106,7 +106,7 @@
                                 <Insets left="30.0" />
                             </HBox.margin>
                         </Label>
-                        <ComboBox fx:id="cmbItemId" onAction="#cmbItemOnAction" prefHeight="26.0" prefWidth="280.0">
+                        <ComboBox fx:id="cmbItemId" prefHeight="26.0" prefWidth="280.0">
                             <HBox.margin>
                                 <Insets left="110.0" top="14.0" />
                             </HBox.margin>
@@ -176,7 +176,7 @@
         </VBox>
         <HBox layoutX="20.0" layoutY="288.0" prefHeight="66.0" prefWidth="1360.0" style="-fx-background-color: #fff; -fx-background-radius: 20; -fx-border-color: #7209b7; -fx-border-radius: 20; -fx-border-width: 2;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
             <children>
-                <Button mnemonicParsing="false" onAction="#btnAddToCartOnAction" prefHeight="31.0" prefWidth="1333.0" style="-fx-background-color: linear-gradient(to right, #B2FEFA, #0ED2F7); -fx-background-radius: 20;" text="Add ToCart" HBox.hgrow="ALWAYS">
+                <Button fx:id="btnAddToCart" mnemonicParsing="false" onAction="#btnAddToCartOnAction" prefHeight="31.0" prefWidth="1333.0" style="-fx-background-color: linear-gradient(to right, #B2FEFA, #0ED2F7); -fx-background-radius: 20;" text="Add ToCart" HBox.hgrow="ALWAYS">
                     <font>
                         <Font name="Arial Bold" size="16.0" />
                     </font>
@@ -190,7 +190,6 @@
             <children>
                 <TableView fx:id="tblOrder" onMouseClicked="#OnClickTable" prefHeight="229.0" prefWidth="1360.0" stylesheets="@assests/tableView.css">
                     <columns>
-                        <TableColumn fx:id="colContact" prefWidth="75.0" text="Customer  Contact" />
                         <TableColumn fx:id="colItemId" prefWidth="75.0" text="Item Id" />
                         <TableColumn fx:id="colItemName" prefWidth="75.0" text="Item Name" />
                         <TableColumn fx:id="colQty" prefWidth="75.0" text="Qty" />
@@ -214,7 +213,7 @@
                         <Insets left="70.0" />
                     </HBox.margin>
                 </Button>
-                <Button mnemonicParsing="false" onAction="#btnPlaceOrderOnAAction" prefWidth="670.0" style="-fx-background-color: linear-gradient(to right, #00b09b, #96c93d);" text="Place Order">
+                <Button fx:id="btnPlaceOrder" mnemonicParsing="false" onAction="#btnPlaceOrderOnAAction" prefWidth="670.0" style="-fx-background-color: linear-gradient(to right, #00b09b, #96c93d);" text="Place Order">
                     <font>
                         <Font name="Arial Bold" size="16.0" />
                     </font>

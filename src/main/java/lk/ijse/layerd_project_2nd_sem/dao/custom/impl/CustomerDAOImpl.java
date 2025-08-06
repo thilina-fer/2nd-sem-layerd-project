@@ -2,6 +2,7 @@ package lk.ijse.layerd_project_2nd_sem.dao.custom.impl;
 
 import lk.ijse.layerd_project_2nd_sem.dao.SQLUtil;
 import lk.ijse.layerd_project_2nd_sem.dao.custom.CustomerDAO;
+import lk.ijse.layerd_project_2nd_sem.dto.CustomerDTO;
 import lk.ijse.layerd_project_2nd_sem.entity.Customer;
 
 import java.sql.ResultSet;
@@ -93,7 +94,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 
     @Override
     public Customer find(String id) throws SQLException, ClassNotFoundException {
-        ResultSet resultSet = SQLUtil.executeQuery("SELECT * FROM customer WHERE customer_id = ?", id);
+        ResultSet resultSet = SQLUtil.executeQuery("SELECT * FROM customer WHERE customer_contact = ?", id);
         if (resultSet.next()) {
             return new Customer(
                     resultSet.getString(1),
@@ -103,5 +104,11 @@ public class CustomerDAOImpl implements CustomerDAO {
             );
         }
         return null;
+    }
+
+    @Override
+    public boolean exist(String id) throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = SQLUtil.executeQuery("SELECT customer_id FROM customer WHERE customer_id = ?", id);
+        return resultSet.next();
     }
 }

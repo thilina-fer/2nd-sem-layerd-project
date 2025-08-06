@@ -52,4 +52,8 @@ public class DashboardPageController {
     public void btnPreOrderOnAction(ActionEvent actionEvent) {
         navigateTo("/PreOrderPage.fxml");
     }
+
+    public void btnOrderOnAction(ActionEvent actionEvent) {
+        navigateTo("/OrderPage.fxml");
+    }
 }

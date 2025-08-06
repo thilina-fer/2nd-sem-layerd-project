@@ -103,4 +103,9 @@ public class UserDAOImpl implements UserDAO {
     public User find(String id) throws SQLException, ClassNotFoundException {
         return null;
     }
+
+    @Override
+    public boolean exist(String id) throws SQLException, ClassNotFoundException {
+        return false;
+    }
 }

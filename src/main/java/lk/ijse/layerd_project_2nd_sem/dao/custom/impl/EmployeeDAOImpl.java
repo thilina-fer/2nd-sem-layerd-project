@@ -104,4 +104,9 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     public Employee find(String id) throws SQLException, ClassNotFoundException {
         return null;
     }
+
+    @Override
+    public boolean exist(String id) throws SQLException, ClassNotFoundException {
+        return false;
+    }
 }

@@ -1,11 +1,13 @@
 package lk.ijse.layerd_project_2nd_sem.bo.custom.impl;
 
+import javafx.scene.control.Alert;
 import lk.ijse.layerd_project_2nd_sem.bo.custom.PlaceOrderBO;
 import lk.ijse.layerd_project_2nd_sem.dao.DAOFactory;
 import lk.ijse.layerd_project_2nd_sem.dao.custom.CustomerDAO;
 import lk.ijse.layerd_project_2nd_sem.dao.custom.ItemDAO;
 import lk.ijse.layerd_project_2nd_sem.dao.custom.OrderDAO;
 import lk.ijse.layerd_project_2nd_sem.dao.custom.OrderDetailDAO;
+import lk.ijse.layerd_project_2nd_sem.db.DBConnection;
 import lk.ijse.layerd_project_2nd_sem.dto.CustomerDTO;
 import lk.ijse.layerd_project_2nd_sem.dto.ItemDTO;
 import lk.ijse.layerd_project_2nd_sem.dto.OrderDetailDTO;
@@ -16,6 +18,7 @@ import lk.ijse.layerd_project_2nd_sem.entity.OrderDetail;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -100,6 +103,13 @@ public class PlaceOrderBOImpl implements PlaceOrderBO {
     @Override
     public boolean placeOrder(String orderId, LocalDate orderDate, String customerContact, List<OrderDetailDTO> orderDetails) throws SQLException, ClassNotFoundException {
         Connection connection = null;
+        connection = DBConnection.getDbConnection().getConnection();
+
+        boolean b = orderDAO.exist(orderId);
+
+        if (b){
+            return false;
+        }
         connection.setAutoCommit(false);
         boolean b1 = orderDAO.save(new Order(
                 orderId ,
@@ -156,7 +166,7 @@ public class PlaceOrderBOImpl implements PlaceOrderBO {
         connection.setAutoCommit(true);
         return true;
 
-    }
+        }
 
     @Override
     public ItemDTO findItem(String id) throws SQLException, ClassNotFoundException {
@@ -173,5 +183,22 @@ public class PlaceOrderBOImpl implements PlaceOrderBO {
               e.printStackTrace();
               throw new RuntimeException("Failed to find item with id: " + id, e);
        }
+    }
+
+    @Override
+    public CustomerDTO findCustomer(String contact) throws SQLException, ClassNotFoundException {
+        try {
+            Customer customer = customerDAO.find(contact);
+            return new CustomerDTO(
+                    customer.getCustomerId(),
+                    customer.getCustomerName(),
+                    customer.getCustomerContact(),
+                    customer.getCustomerAddress()
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }

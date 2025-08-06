@@ -92,4 +92,9 @@ public class SupplierDAOImpl implements SupplierDAO {
     public Supplier find(String id) throws SQLException, ClassNotFoundException {
         return null;
     }
+
+    @Override
+    public boolean exist(String id) throws SQLException, ClassNotFoundException {
+        return false;
+    }
 }
