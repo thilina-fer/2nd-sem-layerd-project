@@ -4,6 +4,7 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
@@ -56,12 +57,13 @@ public class ManagePlaceOrderPageController {
     PlaceOrderBO placeOrderBO = (PlaceOrderBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.PLACE_ORDER);
 
     public void  initialize() {
+        tblOrder.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("customerContact"));
         tblOrder.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("itemId"));
         tblOrder.getColumns().get(2).setCellValueFactory(new PropertyValueFactory<>("itemName"));
         tblOrder.getColumns().get(3).setCellValueFactory(new PropertyValueFactory<>("quantity"));
         tblOrder.getColumns().get(4).setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
         tblOrder.getColumns().get(5).setCellValueFactory(new PropertyValueFactory<>("total"));
-        TableColumn<OrderDetailTM , Button> lastCol = (TableColumn<OrderDetailTM, Button>) tblOrder.getColumns().get(5);
+        TableColumn<OrderDetailTM , Button> lastCol = (TableColumn<OrderDetailTM, Button>) tblOrder.getColumns().get(6);
 
         lastCol.setCellValueFactory(param -> {
             Button btnDelete = new Button("Remove");
@@ -92,11 +94,12 @@ public class ManagePlaceOrderPageController {
                     /*search customer*/
                     try {
                         if(existCustomer(newValue + "")){
-                            new Alert(Alert.AlertType.ERROR, "Customer not found 1!").show();
+                            new Alert(Alert.AlertType.ERROR, "Customer not found !").show();
                         }
 
                         CustomerDTO customerDTO = placeOrderBO.searchCustomer(newValue+"");
                         lblCustomerName.setText(customerDTO.getCustomerName());
+
                     }catch (Exception e){
                         e.printStackTrace();
                         new Alert(Alert.AlertType.ERROR, "Failed to load customer details.").show();
@@ -115,7 +118,7 @@ public class ManagePlaceOrderPageController {
                 try {
                     /*search item*/
                     try {
-                        if(!existItem(newValue + "")){
+                        if(existItem(newValue + "")){
                             new Alert(Alert.AlertType.ERROR, "Item not found!").show();
                         }
                         ItemDTO itemDTO = placeOrderBO.searchItem(newValue+"");
@@ -123,7 +126,7 @@ public class ManagePlaceOrderPageController {
                         lblItemPrice.setText(String.valueOf(itemDTO.getSellPrice()));
 
                         Optional<OrderDetailTM> optionalDetail = tblOrder.getItems().stream().filter(detail -> detail.getItemId().equals(newValue)).findFirst();
-                        txtAddToCartQty.setText(optionalDetail.isPresent() ? String.valueOf(itemDTO.getQuantity() - optionalDetail.get().getQuantity()) : itemDTO.getQuantity() + "");
+                        lblItemQty.setText(optionalDetail.isPresent() ? String.valueOf(itemDTO.getQuantity() - optionalDetail.get().getQuantity()) : itemDTO.getQuantity() + "");
 
                     }catch (Exception e){
                         e.printStackTrace();
@@ -162,7 +165,7 @@ public class ManagePlaceOrderPageController {
     }
 
     private boolean existItem(String itemId) throws SQLException, ClassNotFoundException {
-        return placeOrderBO.existCustomer(itemId);
+        return placeOrderBO.existItem(itemId);
     }
 
     public String generateNewOrderId() {
@@ -204,22 +207,19 @@ public class ManagePlaceOrderPageController {
 
 
     public void btnAddToCartOnAction(ActionEvent actionEvent) {
-       // if (!lblItemQty.getText().matches("\\d") || Integer.parseInt(lblItemQty.getText() <= 0 || Integer.parseInt(lblItemQty.getText()) > Integer.parseInt(txtAddToCartQty.getText()))){
 
-           if(!lblItemQty.getText().matches("\\d+") || Integer.parseInt(lblItemQty.getText()) <= 0 ||
-                    Integer.parseInt(lblItemQty.getText()) > Integer.parseInt(txtAddToCartQty.getText())){
+        if(!txtAddToCartQty.getText().matches("\\d+") || Integer.parseInt(txtAddToCartQty.getText()) <= 0 ||
+                Integer.parseInt(txtAddToCartQty.getText()) > Integer.parseInt(lblItemQty.getText())){
 
             new Alert(Alert.AlertType.ERROR, "Invalid quantity!").show();
             return;
         }
-
+        String customerContact = cmbCustomerContact.getSelectionModel().getSelectedItem();
         String itemId = cmbItemId.getSelectionModel().getSelectedItem();
         String name = lblItemName.getText();
-        //BigDecimal unitPrice = new BigDecimal(lblItemPrice.getText()).setScale(2);
-        Double unitPrice = Double.parseDouble(lblItemPrice.getText());
-        int qty = Integer.parseInt(lblItemQty.getText());
-       // Double total = unitPrice.multiply(new BigDecimal(qty)).setScale(2);
-        Double total = unitPrice * qty;
+        double unitPrice = Double.parseDouble(lblItemPrice.getText());
+        int qty = Integer.parseInt(txtAddToCartQty.getText());
+        double total = unitPrice * qty;
 
 
         boolean exists = tblOrder.getItems().stream().anyMatch(detail -> detail.getItemId().equals(itemId));
@@ -231,16 +231,20 @@ public class ManagePlaceOrderPageController {
                 orderDetailTM.setQuantity(qty);
                 orderDetailTM.setTotal(total);
                 tblOrder.getSelectionModel().clearSelection();
+
             } else {
+
                 orderDetailTM.setQuantity(orderDetailTM.getQuantity() + qty);
-               // total = new BigDecimal(orderDetailTM.getQty()).multiply(unitPrice).setScale(2);
                 total = orderDetailTM.getQuantity() * unitPrice;
                 orderDetailTM.setTotal(total);
             }
+
             tblOrder.refresh();
+
         } else {
-            tblOrder.getItems().add(new OrderDetailTM(itemId, name , qty, unitPrice, total));
+            tblOrder.getItems().add(new OrderDetailTM( customerContact , itemId, name , qty, unitPrice, total));
         }
+
         cmbItemId.getSelectionModel().clearSelection();
         cmbItemId.requestFocus();
         calculateTotal();
@@ -253,9 +257,13 @@ public class ManagePlaceOrderPageController {
     }
 
     private void calculateTotal() {
-        Double total = tblOrder.getItems().stream()
-                .mapToDouble(OrderDetailTM::getTotal)
-                .sum();
+        double total = 0.0;
+
+        for (OrderDetailTM detail : tblOrder.getItems()) {
+            //total = total.add(detail.getTotal());
+            total += detail.getTotal();
+        }
+        lblTotal.setText("Total: " +total);
 
     }
 
@@ -296,5 +304,24 @@ public class ManagePlaceOrderPageController {
     public void btnResetOnAction(ActionEvent actionEvent) {
     }
 
+    public void navigateTo(String path) {
+        try {
+            ancDashboard.getChildren().clear();
 
+            AnchorPane anchorPane = FXMLLoader.load(getClass().getResource(path));
+
+            anchorPane.prefWidthProperty().bind(ancDashboard.widthProperty());
+            anchorPane.prefHeightProperty().bind(ancDashboard.heightProperty());
+
+            ancDashboard.getChildren().add(anchorPane);
+
+        }catch (Exception e){
+            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
+            e.printStackTrace();
+        }
+    }
+
+    public void goToHomePage(ActionEvent actionEvent) {
+        navigateTo("/DashboardPage.fxml");
+    }
 }

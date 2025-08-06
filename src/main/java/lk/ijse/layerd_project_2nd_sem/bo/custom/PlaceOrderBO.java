@@ -11,8 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface PlaceOrderBO extends SuperBO {
-   /* ArrayList<CustomerDTO> searchCustomer(String text) throws Exception;
-    ArrayList<ItemDTO> searchItem(String text) throws Exception;*/
     CustomerDTO searchCustomer(String id) throws SQLException,ClassNotFoundException;
     ItemDTO searchItem(String id) throws SQLException,ClassNotFoundException;
     boolean existCustomer(String id) throws SQLException, ClassNotFoundException;
