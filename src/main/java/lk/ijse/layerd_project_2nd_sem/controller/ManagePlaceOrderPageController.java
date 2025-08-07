@@ -65,7 +65,7 @@ public class ManagePlaceOrderPageController {
         tblOrder.getColumns().get(5).setCellValueFactory(new PropertyValueFactory<>("total"));
         TableColumn<OrderDetailTM , Button> lastCol = (TableColumn<OrderDetailTM, Button>) tblOrder.getColumns().get(6);
 
-        lastCol.setCellValueFactory(param -> {
+ lastCol.setCellValueFactory(param -> {
             Button btnDelete = new Button("Remove");
 
             btnDelete.setOnAction(event -> {
@@ -76,6 +76,7 @@ public class ManagePlaceOrderPageController {
             });
             return new ReadOnlyObjectWrapper<>(btnDelete);
         });
+
 
         orderId = generateNewOrderId();
         lblOrderId.setText(orderId);
@@ -91,77 +92,89 @@ public class ManagePlaceOrderPageController {
 
             if (newValue != null) {
                 try {
-                    /*search customer*/
+
                     try {
-                        if(existCustomer(newValue + "")){
-                            new Alert(Alert.AlertType.ERROR, "Customer not found !").show();
+                        if(!existCustomer(newValue + "")){
+                            //new Alert(Alert.AlertType.ERROR, "Customer not found !" + newValue + "").show();
                         }
 
-                        CustomerDTO customerDTO = placeOrderBO.searchCustomer(newValue+"");
-                        lblCustomerName.setText(customerDTO.getCustomerName());
+                        CustomerDTO customerDTO = placeOrderBO.searchCustomer(newValue + "");
+                        if (customerDTO != null && customerDTO.getCustomerName() != null) {
+                            lblCustomerName.setText(customerDTO.getCustomerName());
+                        } else {
+                            lblCustomerName.setText(""); // or show an error
+                        }
 
                     }catch (Exception e){
                         e.printStackTrace();
-                        new Alert(Alert.AlertType.ERROR, "Failed to load customer details.").show();
+                        new Alert(Alert.AlertType.ERROR, "Failed to load customer details." + newValue + "" + e).show();
                     }
-                }catch (Exception e){
-                    e.printStackTrace();
-                    new Alert(Alert.AlertType.ERROR, "Failed to load customer details.").show();
+                }catch (Exception throwable) {
+                    throwable.printStackTrace();
                 }
             }else {
                 lblCustomerName.setText("");
             }
         });
-        cmbItemId.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 
-            if (newValue != null) {
+
+        cmbItemId.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newItemId) -> {
+            txtAddToCartQty.setEditable(newItemId != null);
+            btnAddToCart.setDisable(newItemId == null);
+
+            if (newItemId != null) {
                 try {
-                    /*search item*/
+
+
                     try {
-                        if(existItem(newValue + "")){
-                            new Alert(Alert.AlertType.ERROR, "Item not found!").show();
+                        if(!existItem(newItemId + "")){
+
                         }
-                        ItemDTO itemDTO = placeOrderBO.searchItem(newValue+"");
+                        ItemDTO itemDTO = placeOrderBO.searchItem(newItemId+"");
                         lblItemName.setText(itemDTO.getItemName());
-                        lblItemPrice.setText(String.valueOf(itemDTO.getSellPrice()));
+                        lblItemPrice.setText(itemDTO.getSellPrice() + "");
 
-                        Optional<OrderDetailTM> optionalDetail = tblOrder.getItems().stream().filter(detail -> detail.getItemId().equals(newValue)).findFirst();
-                        lblItemQty.setText(optionalDetail.isPresent() ? String.valueOf(itemDTO.getQuantity() - optionalDetail.get().getQuantity()) : itemDTO.getQuantity() + "");
+                        Optional<OrderDetailTM> optionalDetail = tblOrder.getItems().stream().filter(detail -> detail.getItemId().equals(newItemId)).findFirst();
+                        lblItemQty.setText((optionalDetail.isPresent() ? itemDTO.getQuantity() - optionalDetail.get().getQuantity() : itemDTO.getQuantity())+"");
 
-                    }catch (Exception e){
-                        e.printStackTrace();
-                        new Alert(Alert.AlertType.ERROR, "Failed to load item details.").show();
+                    }catch (SQLException throwables){
+                        throwables.printStackTrace();
+
                     }
-                }catch (Exception e){
+                }catch (ClassNotFoundException e){
                     e.printStackTrace();
-                    new Alert(Alert.AlertType.ERROR, "Failed to load item details.").show();
                 }
+
             }else {
+
                 lblItemName.setText("");
                 lblItemPrice.setText("");
                 lblItemQty.setText("");
             }
         });
+
+
         tblOrder.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, selectedOrderDetail) -> {
             if (selectedOrderDetail != null) {
                 cmbItemId.setDisable(true);
                 cmbItemId.setValue(selectedOrderDetail.getItemId());
-                btnPlaceOrder.setText("update");
+               // btnPlaceOrder.setText("update");
                 txtAddToCartQty.setText(Integer.parseInt(txtAddToCartQty.getText()) + selectedOrderDetail.getQuantity() + "");
-                lblItemQty.setText(String.valueOf(selectedOrderDetail.getQuantity()));
+                lblItemQty.setText(selectedOrderDetail.getQuantity() + "");
+
             }else {
-                btnPlaceOrder.setText("Add");
+                //btnPlaceOrder.setText("Add");
                 cmbItemId.setDisable(false);
                 cmbItemId.getSelectionModel().clearSelection();
                 txtAddToCartQty.clear();
             }
         });
-        loadAllCustomerIds();
-        loadAllItemCodes();
+        loadAllCustomerContacts();
+        loadAllItemIds();
     }
 
-    private boolean existCustomer(String customerId) throws SQLException, ClassNotFoundException {
-     return placeOrderBO.existCustomer(customerId);
+    private boolean existCustomer(String contact) throws SQLException, ClassNotFoundException {
+     return placeOrderBO.existCustomer(contact);
     }
 
     private boolean existItem(String itemId) throws SQLException, ClassNotFoundException {
@@ -171,16 +184,18 @@ public class ManagePlaceOrderPageController {
     public String generateNewOrderId() {
         try {
             return placeOrderBO.generateOrderId();
-        }catch (Exception e){
+        }catch (SQLException e){
             e.printStackTrace();
             new Alert(Alert.AlertType.ERROR, "Failed to generate new order ID.").show();
 
+        }catch (ClassNotFoundException e){
+            e.printStackTrace();
         }
         return "O001";
     }
 
 
-    private void loadAllCustomerIds() {
+    private void loadAllCustomerContacts() {
         try{
             ArrayList<CustomerDTO> customerDTOS = placeOrderBO.getAllCustomer();
             for (CustomerDTO customerDTO : customerDTOS) {
@@ -192,7 +207,7 @@ public class ManagePlaceOrderPageController {
         }
     }
 
-    private void loadAllItemCodes() {
+    private void loadAllItemIds() {
         try {
             ArrayList<ItemDTO> itemDTOS = placeOrderBO.getAllItem();
             for (ItemDTO itemDTO : itemDTOS) {
@@ -208,12 +223,21 @@ public class ManagePlaceOrderPageController {
 
     public void btnAddToCartOnAction(ActionEvent actionEvent) {
 
-        if(!txtAddToCartQty.getText().matches("\\d+") || Integer.parseInt(txtAddToCartQty.getText()) <= 0 ||
-                Integer.parseInt(txtAddToCartQty.getText()) > Integer.parseInt(lblItemQty.getText())){
+        /*if(!lblItemQty.getText().matches("\\d+") || Integer.parseInt(lblItemQty.getText()) <= 0 ||
+                Integer.parseInt(lblItemQty.getText()) > Integer.parseInt(txtAddToCartQty.getText())){
 
             new Alert(Alert.AlertType.ERROR, "Invalid quantity!").show();
+            lblItemQty.requestFocus();
+            return;
+        }*/
+        if(!lblItemQty.getText().matches("\\d+") ||
+                Integer.parseInt(lblItemQty.getText()) <= 0 ||
+                Integer.parseInt(txtAddToCartQty.getText()) > Integer.parseInt(lblItemQty.getText())){ // Fixed condition
+            new Alert(Alert.AlertType.ERROR, "Invalid quantity!").show();
+            txtAddToCartQty.requestFocus(); // Changed focus to quantity input
             return;
         }
+
         String customerContact = cmbCustomerContact.getSelectionModel().getSelectedItem();
         String itemId = cmbItemId.getSelectionModel().getSelectedItem();
         String name = lblItemName.getText();
@@ -227,7 +251,7 @@ public class ManagePlaceOrderPageController {
         if (exists) {
             OrderDetailTM orderDetailTM = tblOrder.getItems().stream().filter(detail -> detail.getItemId().equals(itemId)).findFirst().get();
 
-            if (btnAddToCart.getText().equalsIgnoreCase("Update")) {
+if (btnAddToCart.getText().equalsIgnoreCase("Update")) {
                 orderDetailTM.setQuantity(qty);
                 orderDetailTM.setTotal(total);
                 tblOrder.getSelectionModel().clearSelection();
@@ -238,6 +262,7 @@ public class ManagePlaceOrderPageController {
                 total = orderDetailTM.getQuantity() * unitPrice;
                 orderDetailTM.setTotal(total);
             }
+
 
             tblOrder.refresh();
 

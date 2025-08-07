@@ -18,4 +18,7 @@ public class OrderDetailTM {
 
     public OrderDetailTM(String customerContact, String itemId, String name, int qty, Double unitPrice, Double total) {
     }
+
+    public OrderDetailTM(String itemCode, String description, int qty, double unitPrice, double total) {
+    }
 }

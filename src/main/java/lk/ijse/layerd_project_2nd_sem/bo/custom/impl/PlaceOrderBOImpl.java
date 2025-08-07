@@ -32,8 +32,8 @@ public class PlaceOrderBOImpl implements PlaceOrderBO {
     OrderDetailDAO orderDetailDAO = (OrderDetailDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.ORDER_DETAIL);
 
     @Override
-    public CustomerDTO searchCustomer(String id) throws SQLException, ClassNotFoundException {
-        Customer entity = customerDAO.find(id);
+    public CustomerDTO searchCustomer(String contact) throws SQLException, ClassNotFoundException {
+        Customer entity = customerDAO.find(contact);
         return new CustomerDTO(
                 entity.getCustomerId(),
                 entity.getCustomerName(),
@@ -55,13 +55,13 @@ public class PlaceOrderBOImpl implements PlaceOrderBO {
     }
 
     @Override
-    public boolean existCustomer(String id) throws SQLException, ClassNotFoundException {
-        return false;
+    public boolean existCustomer(String contact) throws SQLException, ClassNotFoundException {
+        return customerDAO.exist(contact);
     }
 
     @Override
     public boolean existItem(String id) throws SQLException, ClassNotFoundException {
-        return false;
+       return itemDAO.exist(id);
     }
 
     @Override
@@ -105,13 +105,13 @@ public class PlaceOrderBOImpl implements PlaceOrderBO {
         Connection connection = null;
         connection = DBConnection.getDbConnection().getConnection();
 
-        boolean b = orderDAO.exist(orderId);
+        boolean b1 = orderDAO.exist(orderId);
 
-        if (b){
+        if (b1){
             return false;
         }
         connection.setAutoCommit(false);
-        boolean b1 = orderDAO.save(new Order(
+        boolean b2 = orderDAO.save(new Order(
                 orderId ,
                 customerContact,
                 orderDate
@@ -119,7 +119,7 @@ public class PlaceOrderBOImpl implements PlaceOrderBO {
 
         // save orders
 
-        if (b1){
+        if (!b2){
             connection.rollback();
             connection.setAutoCommit(true);
             return false;
@@ -128,14 +128,14 @@ public class PlaceOrderBOImpl implements PlaceOrderBO {
         // save order details
 
         for (OrderDetailDTO orderDetail : orderDetails) {
-            boolean b2 = orderDetailDAO.save(new OrderDetail(
+            boolean b3 = orderDetailDAO.save(new OrderDetail(
                     orderDetail.getOrderId(),
                     orderDetail.getItemId(),
                     orderDetail.getQuantity(),
                     orderDetail.getUnitPrice()
             ));
 
-            if (b2){
+            if (!b3){
                 connection.rollback();
                 connection.setAutoCommit(true);
                 return false;
@@ -147,7 +147,7 @@ public class PlaceOrderBOImpl implements PlaceOrderBO {
 
             // Update Item
 
-            boolean b3 = itemDAO.update(new Item(
+            boolean b4 = itemDAO.update(new Item(
                     item.getItemId(),
                     item.getItemName(),
                     item.getQuantity(),
@@ -155,7 +155,7 @@ public class PlaceOrderBOImpl implements PlaceOrderBO {
                     item.getSellPrice()
             ));
 
-            if (b3){
+            if (!b4){
                 connection.rollback();
                 connection.setAutoCommit(true);
                 return false;
