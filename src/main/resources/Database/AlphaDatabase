@@ -1,0 +1,446 @@
+DROP DATABASE IF EXISTS alphaModificationStore;
+CREATE DATABASE alphaModificationStore;
+USE alphaModificationStore;
+
+CREATE TABLE User (
+    user_id VARCHAR(10) NOT NULL,
+    user_name VARCHAR(150) NOT NULL,
+    email VARCHAR(200) NOT NULL,
+    password VARCHAR(20) NOT NULL,
+    contact VARCHAR(10),
+    address VARCHAR(100),
+    role ENUM('owner', 'cashier'),
+    CONSTRAINT PRIMARY KEY (user_id)
+);
+
+INSERT INTO User VALUES
+('U001', 'KrishanManodara', 'krishanmanodara@gmail.com','Krishan123@' ,  '0726343280','Welimada', 'owner'),
+('U002', 'ThilinaDilshann', 'thilinadilshan1010@gmail.com','Dilshan123@' ,  '0766497071','Welimada', 'cashier'),
+('U003', 'PasinduUpamal', 'pasindupamal@gmail.com','Upamal123@' ,  '0714703970','Ragala', 'cashier');
+
+CREATE TABLE Employee (
+    emp_id VARCHAR(10) NOT NULL,
+    emp_name VARCHAR(150) NOT NULL,
+    emp_contact VARCHAR(15),
+    emp_address VARCHAR(200),
+    emp_nic VARCHAR(12) NOT NULL,
+    emp_age INT,
+    salary DECIMAL(10,2),
+    CONSTRAINT PRIMARY KEY (emp_nic)
+);
+
+INSERT INTO Employee VALUES
+('E001', 'Shehan Kokila', '0713781427', 'Welimada rd , Bandarawela', '200315803210', 21, 45000.00),
+('E002', 'Lushan Liyanarachchi', '0759694175', 'Ambagasdowa , Welimada', '200316303015', 21, 30000.00),
+('E003', 'Seminda Udith', '0753282694', 'Nuwaraeliya rd , Keppetipola', '200312903257', 21, 35000.00);
+
+
+
+CREATE TABLE Customer (
+    customer_id VARCHAR(10) NOT NULL,
+    customer_name VARCHAR(150) NOT NULL,
+    customer_contact VARCHAR(10),
+    customer_address VARCHAR(200),
+    CONSTRAINT PRIMARY KEY (customer_contact)
+);
+
+INSERT INTO Customer VALUES
+('C001', 'Thumula Dinisuru', '0704343225', 'Welimada'),
+('C002', 'Pabasara kariyawasam', '0767896543', 'Welimada'),
+('C003', 'Dinusha Chathuranga', '0769711866', 'Nugathalawa'),
+('C004', 'Devinda Pradeep', '0760413661', 'NuwaraEliya'),
+('C005', 'Kavintha Prasad', '0750790285', 'Welimada'),
+('C006', 'Sajith Ramesh', '0771123456', 'Bandarawela'),
+('C007', 'Roshan Dileepa', '0712234567', 'Badulla'),
+('C008', 'Isuru Lakshan', '0753344556', 'Hali-Ela'),
+('C009', 'Manuranga Dilshan', '0724455667', 'Keppetipola'),
+('C010', 'Nimesh Fernando', '0765566778', 'Ambewela'),
+('C011', 'Ravindu Prabath', '0706677889', 'Uva-Paranagama'),
+('C012', 'Chamod Perera', '0747788990', 'Welimada'),
+('C013', 'Tharindu Senanayake', '0778899001', 'Hali-Ela'),
+('C014', 'Dananjaya Kumara', '0759900112', 'Nanu Oya'),
+('C015', 'Lasith Samarasinghe', '0780011223', 'Pattipola'),
+('C016', 'Kavindu Jayawardena', '0711223344', 'NuwaraEliya'),
+('C017', 'Pasindu Madushan', '0722334455', 'Badulla'),
+('C018', 'Thisal Sandaruwan', '0753445566', 'Ragala'),
+('C019', 'Chalana Tharuka', '0784556677', 'Welimada'),
+('C020', 'Supun Mihiran', '0765667788', 'Nugathalawa'),
+('C021', 'Dulaj Maduranga', '0706778899', 'Keppetipola'),
+('C022', 'Madushan Fernando', '0717889900', 'Ambewela'),
+('C023', 'Janith Randika', '0728990011', 'Nanu Oya'),
+('C024', 'Isura Naveen', '0749001122', 'Pattipola'),
+('C025', 'Chamara Kavinda', '0750112233', 'Hali-Ela'),
+('C026', 'Kalana Dilshan', '0781223344', 'Badulla'),
+('C027', 'Thimira Weerasinghe', '0762334455', 'Welimada'),
+('C028', 'Haritha Nipun', '0713445566', 'Uva-Paranagama'),
+('C029', 'Sadeepa Nuwan', '0754556677', 'Ragala'),
+('C030', 'Minura Rajapaksha', '0775667788', 'NuwaraEliya'),
+('C031', 'Sandun Kavishka', '0726778899', 'Welimada'),
+('C032', 'Nadun Sameera', '0737889900', 'Hali-Ela'),
+('C033', 'Pathum Chinthaka', '0768990011', 'Bandarawela'),
+('C034', 'Rashmika Praveen', '0709001122', 'Nanu Oya'),
+('C035', 'Dilshan Thivanka', '0710112233', 'Keppetipola'),
+('C036', 'Asela Nadeeshan', '0781223384', 'Badulla'),
+('C039', 'Bhagya Hansika', '0744556677', 'Welimada'),
+('C041', 'Ashen Bandara', '0736778899', 'Bandarawela'),
+('C042', 'Dilini Samarasinghe', '0767889900', 'Hali-Ela'),
+('C043', 'Ravindi Tharushi', '0708990011', 'Ragala'),
+('C044', 'Dasun Jayasuriya', '0729001122', 'NuwaraEliya'),
+('C046', 'Ayesh Ruwan', '0711223345', 'Badulla'),
+('C047', 'Gimhani Kavindya', '0782334455', 'Ambewela'),
+('C048', 'Buddhika Dinesh', '0733445566', 'Pattipola'),
+('C049', 'Ravisha Nadeesha', '0764556677', 'Uva-Paranagama');
+
+CREATE TABLE Item (
+    item_id VARCHAR(500) NOT NULL,
+    item_name VARCHAR(300) NOT NULL,
+    quantity INT NOT NULL,
+    buying_price DECIMAL(10,2) NOT NULL,
+    selling_price DECIMAL(10,2) NOT NULL,
+    CONSTRAINT PRIMARY KEY (item_id)
+);
+
+INSERT INTO Item (item_id, item_name, quantity, buying_price, selling_price) VALUES
+('I001', 'Grill Light', 10, 3500.00, 4900.00),
+('I002', 'Lenovo Android Set', 10, 32000.00, 44800.00),
+('I003', '8 VIP bar', 12, 6500.00, 9100.00),
+('I004', '15 inch Wipers', 25, 3500.00, 4900.00),
+('I005', '8 inch Sony Speekers', 10, 12000.00, 16800.00),
+('I006', 'LED Underglow Kit', 15, 8500.00, 11900.00),
+('I007', 'Carbon Fiber Hood', 5, 45000.00, 63000.00),
+('I008', 'Spoiler Wing', 8, 22000.00, 30800.00),
+('I009', 'Sports Pedals Set', 20, 7000.00, 9800.00),
+('I010', 'Custom Alloy Wheels 18"', 6, 95000.00, 133000.00),
+('I011', 'Turbo Boost Gauge', 10, 8000.00, 11200.00),
+('I012', 'Nitrous Oxide System', 3, 120000.00, 168000.00),
+('I013', 'High Performance Air Filter', 25, 4500.00, 6300.00),
+('I014', 'LED Headlight Conversion Kit', 12, 15000.00, 21000.00),
+('I015', 'Backlit License Plate Frame', 15, 3000.00, 4200.00),
+('I016', 'Aftermarket Exhaust System', 4, 68000.00, 95200.00),
+('I017', 'Bluetooth Car Stereo', 7, 32000.00, 44800.00),
+('I018', 'Subwoofer Enclosure', 6, 18000.00, 25200.00),
+('I019', 'Amplifier 1200W', 5, 22000.00, 30800.00),
+('I020', 'Car Wrap Vinyl Matte Black', 10, 25000.00, 35000.00),
+('I021', 'Racing Seat (Single)', 6, 40000.00, 56000.00),
+('I022', 'Custom Steering Wheel', 10, 18000.00, 25200.00),
+('I023', 'HID Fog Lamps', 14, 7000.00, 9800.00),
+('I024', 'Rear Diffuser', 5, 19000.00, 26600.00),
+('I025', 'Push Start Button Kit', 8, 9000.00, 12600.00),
+('I026', 'LED Roof Star Light', 20, 7500.00, 10500.00),
+('I027', 'Wireless Backup Camera', 10, 13500.00, 18900.00),
+('I028', 'Dashboard Trim Kit', 12, 6500.00, 9100.00),
+('I029', 'Custom Floor Mats', 20, 8000.00, 11200.00),
+('I030', 'Door Scuff Plates LED', 14, 7800.00, 10920.00),
+('I031', 'Anti Roll Bar Kit', 6, 32000.00, 44800.00),
+('I032', 'Car Air Suspension Kit', 2, 145000.00, 203000.00),
+('I033', 'Performance Brake Calipers', 4, 56000.00, 78400.00),
+('I034', 'Tachometer Digital', 8, 8500.00, 11900.00),
+('I035', 'Gear Shift Knob LED', 10, 6000.00, 8400.00),
+('I036', 'Custom Sunshades', 18, 3000.00, 4200.00),
+('I037', 'Dash Cam 4K', 9, 21000.00, 29400.00),
+('I038', 'Engine Dress-Up Kit', 4, 17500.00, 24500.00),
+('I039', 'LED Interior Kit', 20, 4200.00, 5880.00),
+('I040', 'Cold Air Intake System', 5, 28500.00, 39900.00),
+('I041', 'Side Skirts (Pair)', 6, 27000.00, 37800.00),
+('I042', 'Bonnet Vents', 8, 8800.00, 12320.00),
+('I043', 'Remote Central Locking Kit', 15, 12500.00, 17500.00),
+('I044', 'Dual Horn Kit', 12, 5600.00, 7840.00),
+('I045', 'Wireless Phone Charger Mount', 14, 4500.00, 6300.00),
+('I046', 'Interior Ambient Light Strips', 18, 3000.00, 4200.00),
+('I047', 'High-Performance Spark Plugs', 25, 2800.00, 3920.00),
+('I048', 'Rear Spoiler Lip', 7, 16000.00, 22400.00),
+('I049', 'Underseat Subwoofer', 5, 19500.00, 27300.00),
+('I050', 'Car Detailing Kit', 30, 3500.00, 4900.00);
+
+CREATE TABLE Orders (
+    order_id VARCHAR(10) NOT NULL,
+    customer_contact VARCHAR(10) NOT NULL,
+    order_date DATE NOT NULL,
+    CONSTRAINT pk_order PRIMARY KEY (order_id),
+    CONSTRAINT fk_customer FOREIGN KEY (customer_contact)
+        REFERENCES Customer(customer_contact)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
+
+CREATE TABLE order_details (
+    order_id VARCHAR(20),
+    item_id VARCHAR(20),
+    qty INT NOT NULL,
+    unit_price DECIMAL(10, 2) NOT NULL,
+    PRIMARY KEY (order_id, item_id),
+    FOREIGN KEY (order_id) REFERENCES orders(order_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (item_id) REFERENCES item(item_id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE Employee_Attendance (
+    attendance_id VARCHAR(10) NOT NULL,
+    emp_nic VARCHAR(15) NOT NULL,
+    date DATE NOT NULL,
+    attend_time TIME,
+    duration TIME NOT NULL,
+    PRIMARY KEY (attendance_id),
+    FOREIGN KEY (emp_nic) REFERENCES Employee(emp_nic)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
+
+
+INSERT INTO Employee_Attendance (attendance_id, emp_nic, date, attend_time, duration) VALUES
+('A001', '200315803210', '2025-03-01', '08:15:00', '05:20:00'),
+('A002', '200316303015', '2025-03-02', '08:10:00', '06:20:00'),
+('A003', '200312903257', '2025-03-03', '08:05:00', '05:40:00'),
+('A004', '200315803210', '2025-03-05', '08:00:00', '06:10:00'),
+('A005', '200316303015', '2025-03-06', '07:55:00', '05:30:00'),
+
+('A006', '200312903257', '2025-03-08', '07:50:00', '06:00:00'),
+('A007', '200315803210', '2025-03-10', '07:45:00', '05:20:00'),
+('A008', '200316303015', '2025-03-11', '07:40:00', '06:20:00'),
+('A009', '200312903257', '2025-03-13', '07:35:00', '05:40:00'),
+('A010', '200315803210', '2025-03-15', '07:30:00', '06:10:00'),
+
+('A011', '200316303015', '2025-03-17', '07:25:00', '05:30:00'),
+('A012', '200312903257', '2025-03-18', '07:20:00', '06:00:00'),
+('A013', '200315803210', '2025-03-20', '07:15:00', '05:20:00'),
+('A014', '200316303015', '2025-03-21', '07:10:00', '06:20:00'),
+('A015', '200312903257', '2025-03-23', '07:05:00', '05:40:00'),
+
+('A016', '200315803210', '2025-03-25', '07:00:00', '06:10:00'),
+('A017', '200316303015', '2025-03-26', '06:55:00', '05:30:00'),
+('A018', '200312903257', '2025-03-27', '06:50:00', '06:00:00'),
+('A019', '200315803210', '2025-03-29', '06:45:00', '05:20:00'),
+('A020', '200316303015', '2025-03-30', '06:40:00', '06:20:00'),
+
+('A021', '200312903257', '2025-04-01', '06:35:00', '05:40:00'),
+('A022', '200315803210', '2025-04-02', '06:30:00', '06:10:00'),
+('A023', '200316303015', '2025-04-04', '06:25:00', '05:30:00'),
+('A024', '200312903257', '2025-04-05', '06:20:00', '06:00:00'),
+('A025', '200315803210', '2025-04-07', '06:15:00', '05:20:00'),
+
+('A026', '200316303015', '2025-04-08', '06:10:00', '06:20:00'),
+('A027', '200312903257', '2025-04-10', '06:05:00', '05:40:00'),
+('A028', '200315803210', '2025-04-11', '06:00:00', '06:10:00'),
+('A029', '200316303015', '2025-04-13', '05:55:00', '05:30:00'),
+('A030', '200312903257', '2025-04-14', '05:50:00', '06:00:00'),
+
+('A031', '200315803210', '2025-04-15', '05:45:00', '05:20:00'),
+('A032', '200316303015', '2025-04-17', '05:40:00', '06:20:00'),
+('A033', '200312903257', '2025-04-18', '05:35:00', '05:40:00'),
+('A034', '200315803210', '2025-04-19', '05:30:00', '06:10:00'),
+('A035', '200316303015', '2025-04-20', '05:25:00', '05:30:00'),
+
+('A036', '200312903257', '2025-04-22', '05:20:00', '06:00:00'),
+('A037', '200315803210', '2025-04-23', '05:15:00', '05:20:00'),
+('A038', '200316303015', '2025-04-24', '05:10:00', '06:20:00'),
+('A039', '200312903257', '2025-04-26', '05:05:00', '05:40:00'),
+('A040', '200315803210', '2025-04-27', '05:00:00', '06:10:00'),
+
+('A041', '200316303015', '2025-04-28', '04:55:00', '05:30:00'),
+('A042', '200312903257', '2025-04-29', '04:50:00', '06:00:00'),
+('A043', '200315803210', '2025-04-30', '04:45:00', '05:20:00'),
+('A044', '200316303015', '2025-05-01', '04:40:00', '06:20:00'),
+('A045', '200312903257', '2025-05-02', '04:35:00', '05:40:00'),
+
+('A046', '200315803210', '2025-05-03', '04:30:00', '06:10:00'),
+('A047', '200316303015', '2025-05-04', '04:25:00', '05:30:00'),
+('A048', '200312903257', '2025-05-06', '04:20:00', '06:00:00'),
+('A049', '200315803210', '2025-05-07', '04:15:00', '05:20:00'),
+('A050', '200316303015', '2025-05-08', '04:10:00', '06:20:00');
+
+
+CREATE TABLE Pre_Order_Manage (
+    pre_order_id VARCHAR(10) NOT NULL,
+    user_id VARCHAR(10) NOT NULL,
+    item_id VARCHAR(500) NOT NULL,
+    advance_payment DOUBLE(10,2) NOT NULL,
+    CONSTRAINT PRIMARY KEY (pre_order_id),
+    CONSTRAINT FOREIGN KEY (user_id) REFERENCES User(user_id)
+    ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT FOREIGN KEY (item_id) REFERENCES Item(item_id)
+    ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+INSERT INTO Pre_Order_Manage (pre_order_id, user_id, item_id, advance_payment) VALUES
+('PR001', 'U002', 'I001', 1000.00),
+('PR002', 'U001', 'I002', 1500.00),
+('PR003', 'U002', 'I003', 1200.00),
+('PR004', 'U002', 'I004', 1300.00),
+('PR005', 'U001', 'I005', 1400.00),
+('PR006', 'U001', 'I006', 1600.00),
+('PR007', 'U002', 'I007', 1100.00),
+('PR008', 'U003', 'I008', 1000.00),
+('PR009', 'U002', 'I009', 1150.00),
+('PR010', 'U001', 'I010', 1550.00),
+('PR011', 'U002', 'I011', 1050.00),
+('PR012', 'U001', 'I012', 1350.00),
+('PR013', 'U002', 'I013', 1450.00),
+('PR014', 'U003', 'I014', 1250.00),
+('PR015', 'U002', 'I015', 150.00),
+('PR016', 'U002', 'I016', 1650.00),
+('PR017', 'U001', 'I017', 140.00),
+('PR018', 'U002', 'I018', 110.00),
+('PR019', 'U001', 'I019', 1200.00),
+('PR020', 'U002', 'I020', 130.00);
+
+
+CREATE TABLE Supplier_Order (
+    so_id VARCHAR(10) NOT NULL,
+    supplier_id VARCHAR(10) NOT NULL,
+    user_id VARCHAR(10) NOT NULL,
+    date DATE NOT NULL,
+    item_id VARCHAR(500) NOT NULL,
+    CONSTRAINT PRIMARY KEY (so_id),
+    CONSTRAINT FOREIGN KEY (supplier_id) REFERENCES Supplier(supplier_id)
+    ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT FOREIGN KEY (user_id) REFERENCES User(user_id)
+    ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT FOREIGN KEY (item_id) REFERENCES Item(item_id)
+    ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+INSERT INTO Supplier_Order VALUES
+('SO001', 'S001', 'U001', '2025-02-20', 'I001'),
+('SO002', 'S002', 'U002', '2025-02-21', 'I002'),
+('SO003', 'S003', 'U001', '2025-02-22', 'I003'),
+('SO004', 'S004', 'U002', '2025-02-23', 'I004'),
+('SO005', 'S005', 'U001', '2025-02-24', 'I005'),
+('SO006', 'S006', 'U002', '2025-02-25', 'I006'),
+('SO007', 'S007', 'U001', '2025-02-26', 'I007'),
+('SO008', 'S008', 'U002', '2025-02-27', 'I008'),
+('SO009', 'S009', 'U001', '2025-02-28', 'I009'),
+('SO010', 'S010', 'U002', '2025-03-01', 'I010'),
+('SO011', 'S011', 'U001', '2025-03-02', 'I011'),
+('SO012', 'S012', 'U002', '2025-03-03', 'I012'),
+('SO013', 'S013', 'U001', '2025-03-04', 'I013'),
+('SO014', 'S014', 'U002', '2025-03-05', 'I014'),
+('SO015', 'S015', 'U001', '2025-03-06', 'I015'),
+('SO016', 'S016', 'U002', '2025-03-07', 'I016'),
+('SO017', 'S017', 'U001', '2025-03-08', 'I017'),
+('SO018', 'S018', 'U002', '2025-03-09', 'I018'),
+('SO019', 'S019', 'U001', '2025-03-10', 'I019'),
+('SO020', 'S020', 'U002', '2025-03-11', 'I020'),
+('SO021', 'S021', 'U001', '2025-03-12', 'I021'),
+('SO022', 'S022', 'U002', '2025-03-13', 'I022'),
+('SO023', 'S023', 'U001', '2025-03-14', 'I023'),
+('SO024', 'S024', 'U002', '2025-03-15', 'I024'),
+('SO025', 'S025', 'U001', '2025-03-16', 'I025'),
+('SO026', 'S026', 'U002', '2025-03-17', 'I026'),
+('SO027', 'S027', 'U001', '2025-03-18', 'I027'),
+('SO028', 'S028', 'U002', '2025-03-19', 'I028'),
+('SO029', 'S029', 'U001', '2025-03-20', 'I029'),
+('SO030', 'S030', 'U002', '2025-03-21', 'I030'),
+('SO031', 'S031', 'U001', '2025-03-22', 'I031'),
+('SO032', 'S032', 'U002', '2025-03-23', 'I032'),
+('SO033', 'S033', 'U001', '2025-03-24', 'I033'),
+('SO034', 'S034', 'U002', '2025-03-25', 'I034'),
+('SO035', 'S035', 'U001', '2025-03-26', 'I035'),
+('SO036', 'S036', 'U002', '2025-03-27', 'I036'),
+('SO037', 'S037', 'U001', '2025-03-28', 'I037'),
+('SO038', 'S038', 'U002', '2025-03-29', 'I038'),
+('SO039', 'S039', 'U001', '2025-03-30', 'I039'),
+('SO040', 'S040', 'U002', '2025-03-31', 'I040'),
+('SO041', 'S041', 'U001', '2025-04-01', 'I041'),
+('SO042', 'S042', 'U002', '2025-04-02', 'I042'),
+('SO043', 'S043', 'U001', '2025-04-03', 'I043'),
+('SO044', 'S044', 'U002', '2025-04-04', 'I044'),
+('SO045', 'S045', 'U001', '2025-04-05', 'I045'),
+('SO046', 'S046', 'U002', '2025-04-06', 'I046'),
+('SO047', 'S047', 'U001', '2025-04-07', 'I047'),
+('SO048', 'S048', 'U002', '2025-04-08', 'I048'),
+('SO049', 'S049', 'U001', '2025-04-09', 'I049'),
+('SO050', 'S050', 'U002', '2025-04-10', 'I050');
+
+CREATE TABLE Supplier (
+    supplier_id VARCHAR(10) NOT NULL,
+    supplier_name VARCHAR(150) NOT NULL,
+    supplier_contact VARCHAR(10),
+    supplier_address VARCHAR(100),
+    CONSTRAINT PRIMARY KEY (supplier_id)
+);
+
+INSERT INTO Supplier VALUES
+('S001', '88 Electricals', '0766498250', 'Colombo'),
+('S002', 'Sameera Auto Parts', '0572244520', 'Badulla'),
+('S003', 'Unity Auto', '0578956231', 'Bandarawela'),
+('S004', 'D Audio House', '0115671234', 'Nugegoda'),
+('S005', 'Silva Motors', '0113456789', 'Dehiwala'),
+('S006', 'TurboTune Lanka', '0711234567', 'Kandy'),
+('S007', 'Auto Mods Pvt Ltd', '0761112233', 'Maharagama'),
+('S008', 'DRL Imports', '0773331122', 'Kurunegala'),
+('S009', 'Fast Lane Accessories', '0724567890', 'Anuradhapura'),
+('S010', 'Neon Zone', '0709988776', 'Batticaloa'),
+('S011', 'SpeedTech Performance', '0717788990', 'Matara'),
+('S012', 'Viper Auto World', '0764567892', 'Panadura'),
+('S013', 'Motor Kings Supplies', '0755544211', 'Gampaha'),
+('S014', 'Glow Stripz', '0771029384', 'Ja-Ela'),
+('S015', 'WrapIt Studio', '0701234567', 'Moratuwa'),
+('S016', 'Kaier Distributors', '0769988771', 'Ratnapura'),
+('S017', 'Road Warrior Imports', '0712223344', 'Galle'),
+('S018', 'Hot Mods Lanka', '0723456777', 'Negombo'),
+('S019', 'Street Customs', '0774563210', 'Kegalle'),
+('S020', 'The Tuner Shop', '0756677889', 'Kalutara'),
+('S021', 'Xenon Hub', '0719988776', 'Piliyandala'),
+('S022', 'RevZone', '0768899001', 'Vavuniya'),
+('S023', 'Auto Beam Solutions', '0709981122', 'Nuwara Eliya'),
+('S024', 'Power Mods Auto', '0774445566', 'Ampara'),
+('S025', 'Blackline Motors', '0118899776', 'Hatton'),
+('S026', 'Drift Lab', '0763412123', 'Chilaw'),
+('S027', 'SoundMode Audio', '0772323123', 'Wattala'),
+('S028', 'Chrome Custom Works', '0758765432', 'Kelaniya'),
+('S029', 'CarbonVibe Traders', '0709090888', 'Homagama'),
+('S030', 'GripX Wheels', '0715566778', 'Beruwala'),
+('S031', 'BodyKit Studio', '0764567899', 'Ambalangoda'),
+('S032', 'DashPro Interiors', '0721112223', 'Polonnaruwa'),
+('S033', 'Mod Culture Lanka', '0704455667', 'Trincomalee'),
+('S034', 'Elite Mods', '0771100112', 'Matale'),
+('S035', 'Offroad Edge', '0712233445', 'Kaduruwela'),
+('S036', 'Auto Glow Hub', '0753344556', 'Badulla'),
+('S037', 'RaceLine Imports', '0767788990', 'Seeduwa'),
+('S038', 'Brembo Distributors', '0727766554', 'Wellawatte'),
+('S039', 'GearShift Traders', '0771122334', 'Kottawa'),
+('S040', 'AutoPlug Supplies', '0701231234', 'Peliyagoda'),
+('S041', 'Track Zone Pvt Ltd', '0762233441', 'Ragama'),
+('S042', 'Rev Masters', '0714556677', 'Katunayake'),
+('S043', 'Tuned & Boosted', '0778899002', 'Moragahahena'),
+('S044', 'Wicked Wraps', '0755544332', 'Mount Lavinia'),
+('S045', 'LED Lux Motors', '0723344556', 'Narahenpita'),
+('S046', 'Speedline Accessories', '0706655443', 'Thalawathugoda'),
+('S047', 'RidePro Zone', '0773332221', 'Kadawatha'),
+('S048', 'Throttle Bay', '0767788000', 'Wattala'),
+('S049', 'StreetEdge Customs', '0718880007', 'Dematagoda'),
+('S050', 'Auto Trendz', '0701122334', 'Malabe');
+
+
+CREATE TABLE Supplier_Orders (
+    sup_order_id VARCHAR(10) NOT NULL,
+    supplier_id VARCHAR(10) NOT NULL,
+    order_date DATE NOT NULL,
+    CONSTRAINT pk_order PRIMARY KEY (sup_order_id),
+    CONSTRAINT fk_supplier FOREIGN KEY (supplier_id)
+        REFERENCES supplier(supplier_id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
+
+
+CREATE TABLE sup_order_details (
+    sup_order_id VARCHAR(20),
+    item_id VARCHAR(20),
+    qty INT NOT NULL,
+    unit_price DECIMAL(10, 2) NOT NULL,
+    PRIMARY KEY (sup_order_id, item_id),
+    FOREIGN KEY (sup_order_id)
+        REFERENCES Supplier_Orders(sup_order_id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+    FOREIGN KEY (item_id)
+        REFERENCES item(item_id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+
+
+
+
+
