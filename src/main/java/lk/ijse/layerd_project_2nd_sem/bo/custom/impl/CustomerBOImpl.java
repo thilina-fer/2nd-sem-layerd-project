@@ -6,6 +6,7 @@ import lk.ijse.layerd_project_2nd_sem.dao.custom.CustomerDAO;
 import lk.ijse.layerd_project_2nd_sem.dto.CustomerDTO;
 import lk.ijse.layerd_project_2nd_sem.entity.Customer;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class CustomerBOImpl implements CustomerBO {
@@ -64,5 +65,10 @@ public class CustomerBOImpl implements CustomerBO {
             ));
     }
         return customerDTO;
+    }
+
+    @Override
+    public boolean existCustomer(String contact) throws SQLException, ClassNotFoundException {
+        return customerDAO.exist(contact);
     }
 }

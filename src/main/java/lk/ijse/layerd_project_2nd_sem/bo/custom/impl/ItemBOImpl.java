@@ -7,6 +7,7 @@ import lk.ijse.layerd_project_2nd_sem.dto.CustomerDTO;
 import lk.ijse.layerd_project_2nd_sem.dto.ItemDTO;
 import lk.ijse.layerd_project_2nd_sem.entity.Item;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ItemBOImpl implements ItemBO {
@@ -76,5 +77,10 @@ public class ItemBOImpl implements ItemBO {
             ));
         }
         return itemDTOS;
+    }
+
+    @Override
+    public boolean existItem(String id) throws SQLException, ClassNotFoundException {
+        return itemDAO.exist(id);
     }
 }

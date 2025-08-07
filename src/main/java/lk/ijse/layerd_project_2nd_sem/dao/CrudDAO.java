@@ -10,6 +10,6 @@ public interface CrudDAO<T> extends SuperDAO {
     boolean delete(String id) throws SQLException, ClassNotFoundException;
     String generateNewId() throws SQLException, ClassNotFoundException;
     ArrayList<T> search (String searchText) throws SQLException, ClassNotFoundException;
-    T find(String id) throws SQLException, ClassNotFoundException;
+    T find(String contact) throws SQLException, ClassNotFoundException;
     boolean exist(String id) throws SQLException, ClassNotFoundException;
 }

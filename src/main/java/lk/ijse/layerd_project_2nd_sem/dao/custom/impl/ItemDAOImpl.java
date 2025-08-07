@@ -106,7 +106,6 @@ public class ItemDAOImpl implements ItemDAO {
 
     @Override
     public boolean exist(String id) throws SQLException, ClassNotFoundException {
-        ResultSet resultSet = SQLUtil.executeQuery("SELECT item_id FROM item WHERE item_id = ?", id);
-        return resultSet.next();
+        return SQLUtil.executeQuery("SELECT * FROM item WHERE item_id = ?", id) != null;
     }
 }
