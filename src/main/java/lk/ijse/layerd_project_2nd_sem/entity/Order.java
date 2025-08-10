@@ -18,5 +18,8 @@ public class Order {
     private String orderTotal;
 
     public Order(String orderId, String customerContact, LocalDate date) {
+        this.orderId = orderId;
+        this.customerContact = customerContact;
+        this.date = date.toString();
     }
 }
