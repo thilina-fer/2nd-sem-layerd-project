@@ -5,6 +5,7 @@ module lk.ijse.layerd_project_2nd_sem {
     requires java.sql;
     requires static lombok;
     requires java.desktop;
+    requires jakarta.mail;
 
     opens lk.ijse.layerd_project_2nd_sem to javafx.fxml;
     opens lk.ijse.layerd_project_2nd_sem.controller to javafx.fxml;
