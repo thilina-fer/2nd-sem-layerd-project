@@ -90,11 +90,21 @@ public class SupplierDAOImpl implements SupplierDAO {
 
     @Override
     public Supplier find(String id) throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = SQLUtil.executeQuery("SELECT * FROM supplier WHERE supplier_id = ?", id);
+        if (resultSet.next()) {
+            return new Supplier(
+                    resultSet.getString(1),
+                    resultSet.getString(2),
+                    resultSet.getString(3),
+                    resultSet.getString(4)
+            );
+        }
         return null;
     }
 
     @Override
     public boolean exist(String id) throws SQLException, ClassNotFoundException {
-        return false;
+        ResultSet resultSet = SQLUtil.executeQuery("SELECT supplier_id FROM supplier WHERE supplier_id = ?", id);
+        return resultSet.next();
     }
 }
