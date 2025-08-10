@@ -20,7 +20,8 @@ public class DAOFactory {
         PRE_ORDER,
         ORDER,
         ORDER_DETAIL,
-        SUP_ORDER
+        SUP_ORDER,
+        SUP_ORDER_DETAIL
 
 
     }
@@ -55,6 +56,9 @@ public class DAOFactory {
 
             case SUP_ORDER:
                 return new SupIrderDAOImpl();
+
+            case SUP_ORDER_DETAIL:
+                return new SupOrderDetailDAOImpl();
             default:
                 return null;
         }
