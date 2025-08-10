@@ -188,9 +188,9 @@
         </HBox>
         <VBox layoutX="20.0" layoutY="410.0" prefHeight="239.0" prefWidth="1360.0" style="-fx-background-color: #fff; -fx-background-radius: 20; -fx-border-color: #7209b7; -fx-border-radius: 20;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
             <children>
-                <TableView fx:id="tblOrder" onMouseClicked="#OnClickTable" prefHeight="229.0" prefWidth="1360.0" stylesheets="@tableView.css">
+                <TableView fx:id="tblOrder" onMouseClicked="#OnClickTable" prefHeight="229.0" prefWidth="1360.0" stylesheets="@assests/tableView.css">
                     <columns>
-                        <TableColumn fx:id="colSupId" prefWidth="75.0" text="SSupplier Id" />
+                        <TableColumn fx:id="colSupId" prefWidth="75.0" text="Supplier Id" />
                         <TableColumn fx:id="colItemId" prefWidth="75.0" text="Item Id" />
                         <TableColumn fx:id="colItemName" prefWidth="75.0" text="Item Name" />
                         <TableColumn fx:id="colQty" prefWidth="75.0" text="Qty" />
