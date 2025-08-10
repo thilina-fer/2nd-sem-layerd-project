@@ -19,7 +19,8 @@ public class DAOFactory {
         EMPLOYEE_ATTENDANCE,
         PRE_ORDER,
         ORDER,
-        ORDER_DETAIL
+        ORDER_DETAIL,
+        SUP_ORDER
 
 
     }
@@ -51,6 +52,9 @@ public class DAOFactory {
 
             case ORDER_DETAIL:
                 return new OrderDetailDAOImpl();
+
+            case SUP_ORDER:
+                return new SupIrderDAOImpl();
             default:
                 return null;
         }
