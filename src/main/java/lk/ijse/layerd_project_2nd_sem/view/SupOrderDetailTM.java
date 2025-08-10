@@ -13,4 +13,5 @@ public class SupOrderDetailTM {
     private String itemName;
     private int quantity;
     private double unitPrice;
+    private double total;
 }

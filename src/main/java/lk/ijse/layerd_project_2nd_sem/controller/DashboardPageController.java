@@ -123,4 +123,8 @@ public class DashboardPageController implements Initializable {
         ParallelTransition parallelTransition = new ParallelTransition(scaleTransition, fadeTransition);
         parallelTransition.play();
     }
+
+    public void btnSupOrderOnAction(ActionEvent actionEvent) {
+        navigateTo("/SupplyOrderPage.fxml");
+    }
 }
