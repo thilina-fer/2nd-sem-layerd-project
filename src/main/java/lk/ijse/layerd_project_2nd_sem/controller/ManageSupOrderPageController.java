@@ -1,9 +1,9 @@
 package lk.ijse.layerd_project_2nd_sem.controller;
 
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
@@ -11,7 +11,6 @@ import javafx.scene.layout.AnchorPane;
 import lk.ijse.layerd_project_2nd_sem.bo.BOFactory;
 import lk.ijse.layerd_project_2nd_sem.bo.custom.SupOrderBO;
 import lk.ijse.layerd_project_2nd_sem.dto.*;
-import lk.ijse.layerd_project_2nd_sem.view.OrderDetailTM;
 import lk.ijse.layerd_project_2nd_sem.view.SupOrderDetailTM;
 
 import java.sql.SQLException;
@@ -46,8 +45,7 @@ public class ManageSupOrderPageController {
     public TableColumn<SupOrderDetailTM , Double > colTotal;
     public TableColumn<? , ? > colAction;
 
-    SupOrderBO supOrderBO = (SupOrderBO) BOFactory.getBoFactory().
-            getBO(BOFactory.BOTypes.SUP_ORDER);
+    SupOrderBO supOrderBO = (SupOrderBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.SUP_ORDER);
 
     public AnchorPane ancDashboard;
 
@@ -270,32 +268,11 @@ public class ManageSupOrderPageController {
         double total = 0.0;
 
         for (SupOrderDetailTM detail : tblOrder.getItems()) {
-            //total = total.add(detail.getTotal());
             total += detail.getTotal();
         }
         lblTotal.setText("Total: " +total);
 
     }
-
-    /*public void btnPlaceOrderOnAAction(ActionEvent actionEvent) {
-
-        boolean b = saveOrder(orderId, LocalDate.now(), String.valueOf(cmbSupplierId.getValue()),
-                tblOrder.getItems().stream().map(tm -> new SupOrderDetailDTO(orderId,tm.getItemId(), tm.getQuantity(), tm.getUnitPrice())).collect(Collectors.toList()));
-
-        if (b) {
-            new Alert(Alert.AlertType.INFORMATION, "Order has been placed successfully").show();
-        } else {
-            new Alert(Alert.AlertType.ERROR, "Order has not been placed successfully").show();
-        }
-
-        orderId = generateNewOrderId();
-        //lblId.setText("Order Id: " + orderId);
-        cmbSupplierId.getSelectionModel().clearSelection();
-        cmbItemId.getSelectionModel().clearSelection();
-        tblOrder.getItems().clear();
-        //lblItemQty.clear();
-        calculateTotal();
-    }*/
 
     private boolean saveOrder(String orderId, LocalDate orderDate, String supplierId, List<SupOrderDetailDTO> supOrderDetail) {
         try {
@@ -308,8 +285,6 @@ public class ManageSupOrderPageController {
         return false;
     }
 
-    public void OnClickTable(MouseEvent mouseEvent) {
-    }
 
     public void btnResetOnAction(ActionEvent actionEvent) {
     }
@@ -334,12 +309,25 @@ public class ManageSupOrderPageController {
     
     }
 
+    public void navigateTo(String path) {
+        try {
+            ancDashboard.getChildren().clear();
+
+            AnchorPane anchorPane = FXMLLoader.load(getClass().getResource(path));
+
+            anchorPane.prefWidthProperty().bind(ancDashboard.widthProperty());
+            anchorPane.prefHeightProperty().bind(ancDashboard.heightProperty());
+
+            ancDashboard.getChildren().add(anchorPane);
+
+        }catch (Exception e){
+            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
+            e.printStackTrace();
+        }
+    }
+
     public void gotoDashboard(MouseEvent mouseEvent) {
+        navigateTo("/DashboardPage.fxml");
     }
 
-    public void cmbItemOnAction(ActionEvent actionEvent) {
-    }
-
-    public void cmbSupplierOnAction(ActionEvent actionEvent) {
-    }
 }
